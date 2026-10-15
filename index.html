@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>AIRIS Arcade – 4 Wochen gratis testen</title>
+<meta name="description" content="AIRIS Health Gaming Köln: 4 Wochen gratis testen. Spielerisch mit Charakter und Mini-Games oder ganz klassisch anmelden. Bei Körperformen Köln-Porz.">
+<meta property="og:title" content="AIRIS Arcade – Press Start">
+<meta property="og:description" content="4 Wochen AIRIS gratis testen in Köln-Porz.">
+<meta property="og:image" content="https://airisporz-svg.github.io/assets/airis-social.jpg">
+<meta property="og:url" content="https://airisporz-svg.github.io/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+/* ---------- tokens: light (default) ---------- */
+:root {
+  --bg: #f3f7ec; --bg-grid: rgba(70,110,20,.08); --panel: #ffffff; --panel2: #eef4e3; --line: #d3dfc2; --fg: #12200e; --muted: #56674f;
+  --accent: #93c02f; --accent-strong: #4f8a0b; --on-accent: #0b1406; --accent-shadow: #6c9a1a;
+  --cyan: #00a8e8; --pink: #e8389b; --gold: #e0a100; --orange: #ff5a36; --violet: #7a4dff;
+  --bad: #d93a2b; --ok: #2f8f2f;
+  --glow: 0 0 0 rgba(0,0,0,0); --card-shadow: 0 6px 24px rgba(40,70,10,.10);
+  --blob1: rgba(147,192,47,.30); --blob2: rgba(0,168,232,.20); --blob3: rgba(232,56,155,.16);
+  --display: "Chakra Petch", "Arial Black", sans-serif; --body: "IBM Plex Sans", -apple-system, Arial, sans-serif; --mono: "JetBrains Mono", Menlo, monospace; --pixel: "Press Start 2P", "JetBrains Mono", monospace;
+  --ease: cubic-bezier(.2,.9,.25,1.2); --r: 14px; --gap: 12px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #070b12; --bg-grid: rgba(155,225,47,.06); --panel: #0f1622; --panel2: #16202f; --line: #263449; --fg: #eef3ff; --muted: #97a5ba;
+  --accent: #9be12f; --accent-strong: #b6f05a; --on-accent: #0a1006; --accent-shadow: #5d8d12;
+  --cyan: #2fd4ff; --pink: #ff4fb8; --gold: #ffc93c; --orange: #ff7a45; --violet: #9b7bff; --bad: #ff6b5e; --ok: #7be07b;
+  --glow: 0 0 26px rgba(155,225,47,.35); --card-shadow: 0 6px 30px rgba(0,0,0,.35);
+  --blob1: rgba(155,225,47,.18); --blob2: rgba(47,212,255,.16); --blob3: rgba(255,79,184,.14); color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #070b12; --bg-grid: rgba(155,225,47,.06); --panel: #0f1622; --panel2: #16202f; --line: #263449; --fg: #eef3ff; --muted: #97a5ba;
+  --accent: #9be12f; --accent-strong: #b6f05a; --on-accent: #0a1006; --accent-shadow: #5d8d12;
+  --cyan: #2fd4ff; --pink: #ff4fb8; --gold: #ffc93c; --orange: #ff7a45; --violet: #9b7bff; --bad: #ff6b5e; --ok: #7be07b;
+  --glow: 0 0 26px rgba(155,225,47,.35); --card-shadow: 0 6px 30px rgba(0,0,0,.35);
+  --blob1: rgba(155,225,47,.18); --blob2: rgba(47,212,255,.16); --blob3: rgba(255,79,184,.14); color-scheme: dark; }
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+[hidden] { display: none !important; }
+html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--fg); font-family: var(--body); overflow-x: hidden; }
+body { font-size: 16px; line-height: 1.5; }
+.bgfx { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.bgfx::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--bg-grid) 1px, transparent 1px), linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px); background-size: 44px 44px; }
+.blob { position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; filter: blur(60px); }
+.blob.b1 { background: var(--blob1); left: -20vmax; top: -20vmax; animation: float1 18s ease-in-out infinite alternate; }
+.blob.b2 { background: var(--blob2); right: -25vmax; top: 30vh; animation: float2 22s ease-in-out infinite alternate; }
+.blob.b3 { background: var(--blob3); left: 10vw; bottom: -30vmax; animation: float1 26s ease-in-out infinite alternate-reverse; }
+@keyframes float1 { to { transform: translate(12vw, 10vh) scale(1.1); } } @keyframes float2 { to { transform: translate(-14vw, -8vh) scale(.9); } }
+#fx { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 40; }
+.shell { position: relative; z-index: 1; max-width: 31rem; margin: 0 auto; padding: max(14px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom)); min-height: 100dvh; display: flex; flex-direction: column; gap: var(--gap); }
+.shell.shake { animation: shake .35s; }
+@keyframes shake { 20% { transform: translate(-6px, 2px); } 40% { transform: translate(6px, -2px); } 60% { transform: translate(-4px, 1px); } 80% { transform: translate(3px, 0); } }
+
+/* header */
+header { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; min-height: 40px; }
+.logo { font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: .32em; color: var(--fg); text-decoration: none; }
+.logo span { color: var(--accent-strong); }
+.hdr-r { display: flex; gap: 8px; align-items: center; justify-self: end; }
+.icon-btn { height: 36px; min-width: 36px; padding: 0 10px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-family: var(--mono); font-size: 12px; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 999px; cursor: pointer; }
+.icon-btn canvas { width: 26px; height: 26px; image-rendering: pixelated; }
+.xp { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; font-family: var(--pixel); font-size: 9px; color: var(--accent-strong); }
+.xp .bar { height: 8px; background: var(--panel2); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+.xp .bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--cyan), var(--pink)); background-size: 200% 100%; animation: shimmer 4s linear infinite; transition: width .6s var(--ease); }
+@keyframes shimmer { to { background-position: 200% 0; } }
+
+/* screens */
+.screen { display: none; flex: 1; flex-direction: column; gap: 14px; min-width: 0; }
+.screen.on { display: flex; animation: enter .45s var(--ease); }
+@keyframes enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.kicker { font-family: var(--pixel); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-strong); line-height: 1.7; }
+h1, h2, h3 { margin: 0; text-wrap: balance; overflow-wrap: anywhere; }
+h1, h2 { font-family: var(--display); font-style: italic; text-transform: uppercase; line-height: 1.02; }
+h1 { font-size: clamp(2rem, 10vw, 3.4rem); } h1 em { font-style: italic; display: block; background: linear-gradient(90deg, var(--accent-strong), var(--cyan), var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+h2 { font-size: clamp(1.55rem, 7.5vw, 2.3rem); }
+h3 { font-family: var(--display); font-size: 1.1rem; text-transform: uppercase; }
+p { margin: 0; color: var(--muted); } strong { color: var(--fg); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; box-shadow: var(--card-shadow); min-width: 0; }
+
+/* buttons */
+.btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--display); font-weight: 700; font-size: 17px; letter-spacing: .05em; text-transform: uppercase; background: var(--accent); color: var(--on-accent); border: 0; border-radius: 12px; padding: 14px 18px; min-height: 52px; cursor: pointer; width: 100%; box-shadow: 0 4px 0 var(--accent-shadow), var(--glow); transition: transform .08s, box-shadow .08s; text-decoration: none; }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--accent-shadow); }
+.btn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.5) 50%, transparent 70%); transform: translateX(-120%); }
+.btn.glow::after { animation: sheen 2.8s infinite; } @keyframes sheen { 60%, 100% { transform: translateX(120%); } }
+.btn:disabled { opacity: .4; cursor: not-allowed; box-shadow: none; }
+.btn.alt { background: var(--panel); color: var(--fg); border: 1px solid var(--line); font-size: 14px; min-height: 46px; padding: 10px 12px; box-shadow: none; }
+.btn.plain { font-family: var(--body); font-style: normal; text-transform: none; letter-spacing: 0; font-weight: 600; font-size: 17px; }
+.link { color: var(--muted); font-size: 15px; background: none; border: 0; text-decoration: underline; cursor: pointer; font-family: var(--body); align-self: center; padding: 8px; }
+:focus-visible { outline: 3px solid var(--cyan); outline-offset: 3px; }
+[tabindex="-1"]:focus { outline: none; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+/* landing choice */
+.choice { display: grid; gap: 10px; }
+.choice .serious { display: grid; gap: 4px; text-align: left; background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; cursor: pointer; font-family: var(--body); }
+.choice .serious b { font-size: 17px; } .choice .serious span { color: var(--muted); font-size: 14px; }
+.trust { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); }
+
+/* menu */
+.stage-mini { display: grid; grid-template-columns: 88px 1fr; gap: 12px; align-items: center; }
+.stage-mini canvas { width: 88px; height: 88px; image-rendering: pixelated; }
+.bubble { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; font-size: 14.5px; color: var(--fg); box-shadow: var(--card-shadow); }
+.bubble::before { content: ""; position: absolute; left: -7px; top: 22px; width: 12px; height: 12px; background: var(--panel); border-left: 1px solid var(--line); border-bottom: 1px solid var(--line); transform: rotate(45deg); }
+.daily { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; align-items: center; background: linear-gradient(120deg, color-mix(in srgb, var(--gold) 22%, transparent), color-mix(in srgb, var(--pink) 14%, transparent)); border: 1px solid color-mix(in srgb, var(--gold) 60%, var(--line)); border-radius: var(--r); padding: 12px 14px; }
+.daily .q { font-weight: 600; } .daily .s { font-family: var(--pixel); font-size: 9px; color: var(--muted); grid-column: 1 / -1; }
+.daily .done { font-family: var(--pixel); font-size: 9px; color: var(--ok); }
+.games { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.game { position: relative; text-align: left; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 12px 12px; cursor: pointer; color: var(--fg); font-family: var(--body); display: grid; grid-template-rows: 34px auto auto; gap: 4px; transition: transform .15s var(--ease), border-color .15s; box-shadow: var(--card-shadow); min-width: 0; }
+.game:hover, .game:focus-visible { transform: translateY(-3px); border-color: var(--accent); }
+.game .ico { font-size: 26px; line-height: 34px; }
+.game b { font-family: var(--display); font-size: 16px; text-transform: uppercase; } .game small { font-size: 13px; color: var(--muted); }
+.game .tag { position: absolute; top: 10px; right: 10px; font-family: var(--pixel); font-size: 7px; padding: 4px 6px; border-radius: 6px; }
+.game .tag.hot { background: var(--pink); color: #fff; animation: pulse 1.6s ease-in-out infinite; } .game .tag.best { background: var(--panel2); color: var(--gold); border: 1px solid var(--line); }
+.game.featured { border: 2px solid var(--pink); }
+@keyframes pulse { 50% { transform: scale(1.08); } }
+.board { display: grid; gap: 6px; }
+.board .head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.board .head small { font-size: 12px; color: var(--muted); }
+.brow { display: grid; grid-template-columns: 26px 30px 1fr auto; gap: 8px; align-items: center; padding: 6px 8px; border-radius: 10px; font-size: 14px; }
+.brow:nth-child(odd) { background: var(--panel2); }
+.brow .rk { font-family: var(--pixel); font-size: 9px; color: var(--muted); text-align: center; }
+.brow canvas { width: 28px; height: 28px; image-rendering: pixelated; }
+.brow .bot { font-size: 18px; text-align: center; }
+.brow .sc { font-family: var(--mono); font-weight: 700; }
+.brow.me { background: color-mix(in srgb, var(--accent) 22%, transparent); outline: 1px solid var(--accent); }
+.brow .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.board .note { font-size: 12px; color: var(--muted); }
+
+/* game screens */
+.hud { display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 10px; font-family: var(--pixel); font-size: 10px; min-height: 40px; }
+.hud canvas { width: 40px; height: 40px; image-rendering: pixelated; }
+.hud .t { color: var(--accent-strong); }
+.tbar { height: 8px; background: var(--panel2); border-radius: 4px; overflow: hidden; } .tbar i { display: block; height: 100%; background: linear-gradient(90deg, var(--bad), var(--gold) 30%, var(--accent) 65%, var(--cyan)); transform-origin: left; }
+.combo { font-family: var(--pixel); font-size: 11px; color: var(--pink); text-align: center; height: 16px; }
+.combo.pop { animation: cpop .35s var(--ease); } @keyframes cpop { from { transform: scale(1.8); } to { transform: scale(1); } }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; aspect-ratio: 1; touch-action: manipulation; user-select: none; }
+.pad { border-radius: 16px; border: 2px solid var(--line); background: var(--panel); cursor: pointer; position: relative; transition: transform .08s; box-shadow: var(--card-shadow); }
+.pad.lit { background: radial-gradient(circle, #f4ffd8, var(--accent) 60%); border-color: var(--accent); box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 70%, transparent); animation: litin .18s var(--ease); }
+.pad.lit.gold { background: radial-gradient(circle, #fff6cf, var(--gold) 60%); border-color: var(--gold); }
+@keyframes litin { from { transform: scale(.82); } to { transform: scale(1); } }
+.pad.ok { background: #fff; transform: scale(.92); } .pad.miss { border-color: var(--bad); animation: wob .25s; } @keyframes wob { 30% { transform: translateX(-4px); } 70% { transform: translateX(4px); } }
+.pad .k { position: absolute; right: 8px; bottom: 6px; font-family: var(--mono); font-size: 11px; color: var(--muted); opacity: .6; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; aspect-ratio: 1; touch-action: manipulation; user-select: none; }
+.simon { border-radius: 22px; border: 3px solid rgba(0,0,0,.15); cursor: pointer; opacity: .38; transition: opacity .1s, transform .1s; }
+.simon.on { opacity: 1; transform: scale(1.04); box-shadow: 0 0 40px currentColor, inset 0 0 30px rgba(255,255,255,.5); }
+.s0 { background: var(--accent); color: var(--accent); } .s1 { background: var(--cyan); color: var(--cyan); } .s2 { background: var(--gold); color: var(--gold); } .s3 { background: var(--pink); color: var(--pink); }
+canvas#dodge { width: 100%; aspect-ratio: 3/4; border: 1px solid var(--line); border-radius: var(--r); touch-action: none; display: block; }
+.count { font-family: var(--pixel); font-size: clamp(3rem, 18vw, 5rem); text-align: center; color: var(--accent-strong); margin: auto; }
+.count.pop { animation: cnt .6s var(--ease); } @keyframes cnt { from { transform: scale(2.4); opacity: 0; } 40% { opacity: 1; } to { transform: scale(1); } }
+.hint { text-align: center; font-size: 13px; color: var(--muted); }
+.skipbar { display: flex; justify-content: flex-end; } .skipbar button { font-size: 13px; }
+
+/* result */
+.res { display: grid; grid-template-columns: 84px 1fr; gap: 14px; align-items: center; }
+.res canvas { width: 84px; height: 84px; image-rendering: pixelated; }
+.big { font-family: var(--pixel); font-size: clamp(2rem, 12vw, 3rem); line-height: 1.15; color: var(--accent-strong); overflow-wrap: anywhere; }
+.badge { display: inline-block; font-family: var(--pixel); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; border: 1px solid var(--accent-strong); color: var(--accent-strong); border-radius: 999px; padding: 6px 12px; }
+.newbest { font-family: var(--pixel); font-size: 9px; color: var(--pink); margin-top: 6px; }
+.cta { display: grid; gap: 10px; background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 18%, var(--panel)), var(--panel)); border: 1px solid var(--accent); border-radius: var(--r); padding: 14px; }
+
+/* options */
+.opts { display: grid; gap: 8px; }
+.opt { text-align: left; font: inherit; color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; min-height: 56px; cursor: pointer; display: grid; grid-template-columns: 32px 1fr; gap: 10px; align-items: center; transition: transform .15s var(--ease), border-color .15s, background .15s; }
+.opt:hover { transform: translateX(3px); } .opt[aria-pressed="true"] { border-color: var(--accent); background: var(--panel2); box-shadow: inset 4px 0 0 var(--accent); }
+.opt .e { font-size: 22px; text-align: center; } .opt small { display: block; color: var(--muted); }
+.stagger .opt { animation: enter .4s var(--ease) both; } .stagger .opt:nth-child(2) { animation-delay: .05s; } .stagger .opt:nth-child(3) { animation-delay: .1s; } .stagger .opt:nth-child(4) { animation-delay: .15s; }
+
+/* editor */
+.edstage { position: relative; border-radius: 18px; border: 1px solid var(--line); padding: 56px 12px 14px; display: grid; justify-items: center; gap: 6px; overflow: hidden; box-shadow: var(--card-shadow); }
+.edstage canvas { width: min(46vw, 176px); height: min(46vw, 176px); image-rendering: pixelated; cursor: pointer; }
+.edstage .plate { width: 120px; height: 12px; border-radius: 50%; background: rgba(0,0,0,.18); filter: blur(2px); margin-top: -12px; }
+.edstage .nm { font-family: var(--pixel); font-size: 12px; color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,.35); }
+.edstage .cl { font-family: var(--mono); font-size: 12px; color: #fff; opacity: .9; }
+.edstage .tools { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; justify-content: space-between; }
+.edstage .tools button { height: 34px; padding: 0 10px; border-radius: 999px; border: 0; background: rgba(0,0,0,.35); color: #fff; font-family: var(--mono); font-size: 12px; cursor: pointer; }
+.tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 2px; } .tabs::-webkit-scrollbar { display: none; }
+.tabs button { flex: none; height: 36px; font-family: var(--mono); font-size: 12px; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 0 12px; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(54px, 1fr)); gap: 8px; }
+.sw { aspect-ratio: 1; border-radius: 12px; border: 2px solid var(--line); cursor: pointer; background: var(--panel2); display: grid; place-items: center; transition: transform .12s var(--ease); padding: 0; }
+.sw:hover { transform: scale(1.06); } .sw[aria-pressed="true"] { border-color: var(--fg); box-shadow: 0 0 0 3px var(--accent); }
+.sw canvas { width: 80%; height: 80%; image-rendering: pixelated; }
+.stats { display: grid; gap: 6px; font-family: var(--mono); font-size: 12px; }
+.stat { display: grid; grid-template-columns: 6rem 1fr 1.5rem; gap: 8px; align-items: center; } .stat .b { height: 8px; background: var(--panel2); border-radius: 4px; overflow: hidden; } .stat .b i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--cyan)); transition: width .5s var(--ease); }
+
+/* forms */
+.field { display: grid; gap: 6px; }
+.field label { font-weight: 600; font-size: 15px; }
+.field .help { font-size: 13px; color: var(--muted); }
+input[type=text], input[type=tel], input[type=email] { font: inherit; font-size: 18px; color: var(--fg); background: var(--panel); border: 2px solid var(--line); border-radius: 12px; padding: 13px 14px; width: 100%; min-height: 54px; transition: border-color .15s, box-shadow .15s; }
+input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent); }
+input[aria-invalid="true"] { border-color: var(--bad); }
+.err { color: var(--bad); font-size: 14px; min-height: 1.3em; }
+.radios { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.radios label { min-width: 0; overflow-wrap: anywhere; display: flex; gap: 8px; align-items: center; background: var(--panel); border: 2px solid var(--line); border-radius: 12px; padding: 12px; min-height: 52px; cursor: pointer; font-size: 15px; }
+.radios input { accent-color: var(--accent-strong); width: 18px; height: 18px; }
+.radios label:has(input:checked) { border-color: var(--accent); background: var(--panel2); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { min-height: 44px; padding: 0 14px; border-radius: 999px; border: 2px solid var(--line); background: var(--panel); color: var(--fg); font: inherit; font-size: 15px; cursor: pointer; transition: transform .12s var(--ease), border-color .12s; }
+.chips button:hover { transform: translateY(-2px); } .chips button[aria-pressed="true"] { border-color: var(--accent); background: var(--panel2); box-shadow: inset 0 0 0 1px var(--accent); font-weight: 600; }
+.sub { font-family: var(--body); font-weight: 600; font-size: 15px; text-transform: none; font-style: normal; }
+.sub small { color: var(--muted); font-weight: 400; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.timeline { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.timeline li { display: grid; grid-template-columns: 32px 1fr; gap: 10px; align-items: start; font-size: 15px; }
+.timeline li b { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-family: var(--mono); }
+.timeline li span { padding-top: 5px; }
+a.tel { color: var(--fg); font-weight: 600; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; } .steps i { height: 6px; border-radius: 3px; background: var(--panel2); } .steps i.on { background: var(--accent); }
+.ask { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: center; } .ask canvas { width: 64px; height: 64px; image-rendering: pixelated; }
+.summary { display: grid; gap: 4px; }
+.summary .sr { display: grid; grid-template-columns: 7rem 1fr auto; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.summary .sr:last-child { border-bottom: 0; } .summary .sr span { color: var(--muted); } .summary .sr button { font-size: 13px; padding: 4px; }
+.consent { display: grid; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; font-size: 14px; color: var(--muted); line-height: 1.45; }
+.consent input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--accent-strong); }
+.secure { font-size: 13px; color: var(--muted); display: flex; gap: 6px; align-items: center; }
+
+/* done */
+.card-wrap { display: grid; place-items: center; } .card-wrap canvas { width: min(100%, 300px); height: auto; border-radius: 18px; box-shadow: var(--card-shadow), var(--glow); animation: flip .9s var(--ease); }
+@keyframes flip { from { transform: perspective(800px) rotateY(90deg); } to { transform: perspective(800px) rotateY(0); } }
+.note { font-size: 13px; color: var(--gold); border: 1px dashed var(--gold); border-radius: 10px; padding: 8px 10px; }
+.toast { position: fixed; left: 50%; top: 16%; z-index: 45; font-family: var(--pixel); font-size: 13px; color: #111; background: var(--gold); padding: 12px 18px; border-radius: 10px; pointer-events: none; animation: toast 1.6s var(--ease) forwards; white-space: nowrap; }
+@keyframes toast { 0% { opacity: 0; transform: translate(-50%, 20px) scale(.6); } 15%, 75% { opacity: 1; transform: translate(-50%, 0) scale(1); } 100% { opacity: 0; transform: translate(-50%, -20px); } }
+
+/* serious mode */
+.serious-mode .bgfx .blob, .serious-mode #fx { display: none; }
+.plain h2 { font-style: normal; text-transform: none; font-family: var(--body); font-weight: 600; font-size: 1.7rem; }
+footer { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: center; margin-top: auto; padding-top: 8px; } footer a { color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="bgfx" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="shell" id="shell">
+  <header>
+    <a class="logo" href="#" id="home" aria-label="AIRIS Startseite">AIR<span>I</span>S</a>
+    <span></span>
+    <div class="hdr-r">
+      <button class="icon-btn" id="hdr-char" aria-label="Charakter bearbeiten" hidden><canvas id="hdr-av" width="16" height="16"></canvas></button>
+      <button class="icon-btn" id="sound" aria-pressed="false" aria-label="Ton an oder aus">🔇</button>
+    </div>
+  </header>
+  <div class="xp" id="xpline" aria-label="Fortschritt" hidden><span id="xp-lbl">XP 0</span><div class="bar"><i id="xp-bar"></i></div><span id="lvl">LV1</span></div>
+
+  <!-- ========== START: two paths ========== -->
+  <section class="screen on" id="s-start" aria-labelledby="h-start">
+    <div class="kicker">Neu in Köln-Porz · Health Gaming</div>
+    <h1 id="h-start">Level up.<em>In echt.</em></h1>
+    <p>Die AIRIS ist eine Gaming-Station, an der du mit dem ganzen Körper spielst. <strong>Teste sie 4 Wochen gratis</strong> bei Körperformen Köln-Porz. Kein Abo, endet automatisch.</p>
+    <div class="choice">
+      <button class="btn glow" data-go="menu" id="go-play">🎮 Spielerisch starten</button>
+      <button class="serious" data-go="plain" id="go-plain"><b>Einfach anmelden →</b><span>Ohne Spiele, in einer Minute. Wir rufen Sie an.</span></button>
+    </div>
+    <div class="trust"><span>✓ Kostenlos</span><span>✓ Kein Abo</span><span>✓ Rückruf in 24 h</span><span>📍 Zum Alten Paulshof 1–3</span></div>
+  </section>
+
+  <!-- ========== PLAIN (serious) FORM ========== -->
+  <section class="screen plain" id="s-plain" aria-labelledby="h-plain">
+    <h2 id="h-plain">Kostenlosen Test anfragen</h2>
+    <p>Tragen Sie sich ein, wir rufen Sie innerhalb von 24 Stunden an und vereinbaren Ihren Termin. Lieber direkt? <a class="tel" href="tel:+4922031864763">02203 1864763</a></p>
+    <div class="field"><label for="p-name">Vorname</label><input type="text" id="p-name" autocomplete="given-name"></div>
+    <div class="field"><label for="p-tel">Telefonnummer</label><input type="tel" id="p-tel" autocomplete="tel" inputmode="tel"><span class="help">Nur für den Rückruf zur Terminvereinbarung.</span></div>
+    <div class="field"><span style="font-weight:600">Wann passt es Ihnen am besten?</span><div class="radios" id="p-zeit"></div></div>
+    <div class="field"><span style="font-weight:600">Welche Tage passen?</span><div class="radios" id="p-tage"></div></div>
+    <div class="field"><span style="font-weight:600">Wie dürfen wir Sie kontaktieren?</span><div class="radios" id="p-kontakt"></div></div>
+    <div class="field"><span style="font-weight:600">Kommen Sie allein? <small style="font-weight:400;color:var(--muted)">(optional)</small></span><div class="radios" id="p-beg"></div></div>
+    <div class="field"><span style="font-weight:600">Altersgruppe <small style="font-weight:400;color:var(--muted)">(optional)</small></span><div class="radios" id="p-alter"></div></div>
+    <div class="field" id="p-src-field"><span style="font-weight:600">Wie haben Sie von uns erfahren? <small style="font-weight:400;color:var(--muted)">(optional)</small></span><div class="radios" id="p-src"></div></div>
+    <div class="hp" aria-hidden="true"><label>Firma <input type="text" id="p-hp" tabindex="-1" autocomplete="off"></label></div>
+    <label class="consent"><input type="checkbox" id="p-consent"><span>Ich bin einverstanden, dass Körperformen Köln-Porz mich unter dieser Nummer anruft oder per WhatsApp kontaktiert, um einen kostenlosen AIRIS-Testtermin zu vereinbaren. Ich bin mindestens 18 Jahre alt. Die Angaben werden nur dafür genutzt und gelöscht, wenn kein Vertrag zustande kommt. Widerruf jederzeit. <a href="datenschutz.html">Datenschutzerklärung</a></span></label>
+    <div class="err" id="p-err" aria-live="polite"></div>
+    <button class="btn plain" id="p-send">Kostenlos anmelden</button>
+    <div class="secure">🔒 Ihre Daten werden verschlüsselt übertragen und nicht weitergegeben.</div>
+    <button class="link" data-go="start">Zurück</button>
+  </section>
+
+  <section class="screen plain" id="s-thanks" aria-labelledby="h-thanks">
+    <h2 id="h-thanks">Vielen Dank, <span id="t-name"></span>!</h2>
+    <p>Ihre Anfrage ist angekommen. Wir rufen Sie innerhalb von 24 Stunden an und vereinbaren Ihren kostenlosen Testtermin.</p>
+    <ol class="timeline"><li><b>1</b><span>Wir melden uns innerhalb von 24 Stunden.</span></li><li><b>2</b><span>Gemeinsam finden wir einen Termin.</span></li><li><b>3</b><span>Sie kommen vorbei und testen die AIRIS 4 Wochen kostenlos.</span></li></ol>
+    <div class="card"><p><strong>Körperformen Köln-Porz</strong><br>Zum Alten Paulshof 1–3, 51147 Köln<br>Telefon <a class="tel" href="tel:+4922031864763">02203 1864763</a></p></div>
+    <div class="note" id="t-demo" hidden>Demo-Modus: Das Formular ist noch nicht verbunden, es wurde nichts gesendet.</div>
+    <button class="link" data-go="start">Zur Startseite</button>
+  </section>
+
+  <!-- ========== MENU ========== -->
+  <section class="screen" id="s-menu" aria-labelledby="h-menu">
+    <div class="skipbar"><button class="link" data-go="plain">Ohne Spiel anmelden</button></div>
+    <div class="stage-mini"><canvas id="menu-av" width="16" height="16" aria-hidden="true"></canvas><div class="bubble" id="menu-bubble" aria-live="polite">Hi! Bau dir zuerst deinen Charakter.</div></div>
+    <h1 id="h-menu" style="font-size:clamp(1.8rem,8.5vw,2.8rem)">Arcade<em>Heute im Programm</em></h1>
+    <button class="btn glow" data-go="editor" id="menu-create">🎨 Charakter erstellen</button>
+    <div class="daily" id="daily"><div class="q" id="daily-q">Tagesquest</div><span class="done" id="daily-done"></span><div class="s" id="daily-s"></div></div>
+    <div class="games" id="games"></div>
+    <div class="card board" id="board" aria-labelledby="board-h"></div>
+    <div class="cta"><div class="kicker">🎁 Belohnung</div><p style="color:var(--fg)">4 Wochen AIRIS gratis testen. Kein Abo, endet automatisch.</p><button class="btn alt" data-go="lead1">Spielstand speichern & Test sichern</button></div>
+  </section>
+
+  <!-- ========== EDITOR ========== -->
+  <section class="screen" id="s-editor" aria-labelledby="h-editor">
+    <div class="kicker">Charakter-Editor</div>
+    <h2 id="h-editor">Bau dir deinen Player</h2>
+    <div class="edstage" id="edstage"><div class="tools"><button id="ed-undo" aria-label="Rückgängig">↶ Zurück</button><button id="dice" aria-label="Zufälliger Look">🎲 Zufall</button></div><canvas id="ed-av" width="16" height="16" aria-label="Vorschau deines Charakters, tippen zum Posen"></canvas><div class="plate"></div><div class="nm" id="ed-nm">PLAYER 1</div><div class="cl" id="ed-cl">Klasse wählen</div></div>
+    <div class="field"><label for="in-name">Spielername (dein Vorname)</label><input type="text" id="in-name" maxlength="18" autocomplete="given-name" placeholder="z. B. Semih"></div>
+    <div class="tabs" role="tablist" id="ed-tabs"></div>
+    <div class="swatches" id="ed-sw" role="group" aria-label="Optionen"></div>
+    <h3 style="margin-top:6px">Klasse</h3>
+    <div class="opts" id="classes"></div>
+    <div class="stats" id="stats" aria-label="Werte"></div>
+    <div class="err" id="err-name" aria-live="polite"></div>
+    <button class="btn glow" id="ed-done">Charakter fertig ✓</button>
+  </section>
+
+  <section class="screen" id="s-count" aria-live="assertive"><div class="count" id="count">3</div></section>
+
+  <!-- ========== REACTION ========== -->
+  <section class="screen" id="s-reaction">
+    <div class="hud"><canvas id="re-av" width="16" height="16" aria-hidden="true"></canvas><span>SCORE <span id="re-score">0</span></span><span class="t"><span id="re-time">20.0</span>s</span></div>
+    <div class="tbar"><i id="re-bar"></i></div>
+    <div class="combo" id="re-combo" aria-live="polite"></div>
+    <div class="grid3" id="re-grid" role="group" aria-label="Spielfeld"></div>
+    <p class="hint">Grüne Felder antippen, goldene geben 3 Punkte. Tastatur: Q W E / A S D / Y X C</p>
+    <div class="skipbar"><button class="link" data-quit>Spiel beenden</button></div>
+  </section>
+
+  <!-- ========== DODGE ========== -->
+  <section class="screen" id="s-dodge">
+    <div class="hud"><span></span><span>PUNKTE <span id="do-score">0</span></span><span class="t" id="do-lives">♥♥♥</span></div>
+    <canvas id="dodge" width="300" height="400" aria-label="Ausweich-Spiel: Pfeiltasten, Wischen oder Knöpfe"></canvas>
+    <div class="row2"><button class="btn alt" id="do-l" aria-label="Nach links">◀ Links</button><button class="btn alt" id="do-r" aria-label="Nach rechts">Rechts ▶</button></div>
+    <div class="skipbar"><button class="link" data-quit>Spiel beenden</button></div>
+  </section>
+
+  <!-- ========== SIMON ========== -->
+  <section class="screen" id="s-simon">
+    <div class="hud"><canvas id="si-av" width="16" height="16" aria-hidden="true"></canvas><span>LEVEL <span id="si-level">1</span></span><span class="t" id="si-state">Schau zu…</span></div>
+    <div class="grid2" id="si-grid" role="group" aria-label="Merk-Spiel"><button class="simon s0" aria-label="Grün"></button><button class="simon s1" aria-label="Blau"></button><button class="simon s2" aria-label="Gelb"></button><button class="simon s3" aria-label="Pink"></button></div>
+    <p class="hint">Merk dir die Reihenfolge. Tastatur: 1 2 3 4</p>
+    <div class="skipbar"><button class="link" data-quit>Spiel beenden</button></div>
+  </section>
+
+  <!-- ========== QUIZ ========== -->
+  <section class="screen" id="s-quiz" aria-labelledby="qz-q">
+    <div class="hud"><canvas id="qz-av" width="16" height="16" aria-hidden="true"></canvas><span id="qz-n">FRAGE 1/5</span><span></span></div>
+    <h2 id="qz-q"></h2>
+    <div class="opts stagger" id="qz-opts"></div>
+    <div class="skipbar"><button class="link" data-quit>Quiz beenden</button></div>
+  </section>
+
+  <!-- ========== RESULT ========== -->
+  <section class="screen" id="s-result" aria-labelledby="r-big">
+    <div class="kicker" id="r-kicker">Game Over? Continue!</div>
+    <div class="res"><canvas id="r-av" width="16" height="16" aria-hidden="true"></canvas><div style="min-width:0"><div class="big" id="r-big" tabindex="-1">0</div><div class="newbest" id="r-newbest" hidden>NEUER REKORD!</div></div></div>
+    <p id="r-line"></p>
+    <div><span class="badge" id="r-badge"></span></div>
+    <div class="daily" id="r-quest" hidden><div class="q">✅ Tagesquest geschafft!</div><span class="done">+300 XP</span></div>
+    <div class="card board" id="r-board"></div>
+    <div class="cta" id="r-cta"><div class="kicker">🏆 Erfolg freigeschaltet</div><h2>4 Wochen AIRIS gratis</h2><p>Speicher deinen Spielstand und sicher dir den Test in echt. Kein Abo.</p><button class="btn glow" data-go="lead1">Spielstand speichern</button></div>
+    <div class="row2"><button class="btn alt" id="r-again">↻ Nochmal</button><button class="btn alt" data-go="menu">Andere Games</button></div>
+    <button class="btn alt" id="r-share">Ergebnis teilen</button>
+    <p id="share-msg" class="hint" aria-live="polite"></p>
+  </section>
+
+  <!-- ========== LEAD (game path) ========== -->
+  <section class="screen" id="s-lead1" aria-labelledby="h-lead1">
+    <div class="steps" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+    <div class="ask"><canvas id="l1-av" width="16" height="16" aria-hidden="true"></canvas><div class="bubble" id="l1-say">Wann bist du am liebsten online?</div></div>
+    <h2 id="h-lead1">Dein Zeitfenster</h2>
+    <div class="opts stagger" id="times"></div>
+    <h3 class="sub">Welche Tage?</h3>
+    <div class="chips" id="days" role="group" aria-label="Welche Tage"></div>
+    <button class="btn" id="l1-next" disabled>Weiter</button>
+    <button class="link" data-go="menu">Zurück zur Arcade</button>
+  </section>
+  <section class="screen" id="s-lead2" aria-labelledby="h-lead2">
+    <div class="steps" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></div>
+    <div class="ask"><canvas id="l2-av" width="16" height="16" aria-hidden="true"></canvas><div class="bubble">Spielst du solo oder im Koop?</div></div>
+    <h2 id="h-lead2">Solo oder Koop?</h2>
+    <div class="opts stagger" id="beg"></div>
+    <h3 class="sub">Altersgruppe <small>(optional, damit wir den Test passend vorbereiten)</small></h3>
+    <div class="chips" id="ages" role="group" aria-label="Altersgruppe"></div>
+    <button class="btn" id="l2-next" disabled>Weiter</button>
+    <button class="link" data-go="lead1">Zurück</button>
+  </section>
+  <section class="screen" id="s-lead3" aria-labelledby="h-lead3">
+    <div class="steps" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+    <div class="ask"><canvas id="l3-av" width="16" height="16" aria-hidden="true"></canvas><div class="bubble">Unter welcher Nummer dürfen wir dich anrufen?</div></div>
+    <h2 id="h-lead3">Dein Multiplayer-Code</h2>
+    <div class="field"><label for="in-tel">Telefonnummer</label><input type="tel" id="in-tel" autocomplete="tel" inputmode="tel" placeholder="0170 1234567"><span class="help">Nur für den Rückruf zur Terminvereinbarung, für nichts anderes.</span></div>
+    <h3 class="sub">Wie sollen wir uns melden?</h3>
+    <div class="chips" id="contact" role="group" aria-label="Kontaktweg"></div>
+    <div id="src-field"><h3 class="sub" style="margin-bottom:8px">Wie hast du uns gefunden? <small>(optional)</small></h3><div class="chips" id="srcs" role="group" aria-label="Wie gefunden"></div></div>
+    <div class="hp" aria-hidden="true"><label>Firma <input type="text" id="in-hp" tabindex="-1" autocomplete="off"></label></div>
+    <div class="err" id="err-tel" aria-live="polite"></div>
+    <button class="btn glow" id="l3-next">Loot öffnen 🎁</button>
+    <button class="link" data-go="lead2">Zurück</button>
+  </section>
+  <section class="screen" id="s-lead4" aria-labelledby="h-lead4">
+    <div class="steps" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+    <div class="ask"><canvas id="l4-av" width="16" height="16" aria-hidden="true"></canvas><div class="bubble">Loot gefunden: <strong>4 Wochen AIRIS gratis!</strong> Kurz checken und speichern.</div></div>
+    <h2 id="h-lead4">Spielstand speichern?</h2>
+    <p>Mit dem Speichern <strong>meldest du dich zum kostenlosen 4-Wochen-Test an</strong>. Das schickst du uns:</p>
+    <div class="card summary" id="summary"></div>
+    <label class="consent"><input type="checkbox" id="consent"><span>Ich bin einverstanden, dass Körperformen Köln-Porz mich unter dieser Nummer anruft oder per WhatsApp kontaktiert, um einen kostenlosen AIRIS-Testtermin zu vereinbaren. Ich bin mindestens 18 Jahre alt. Die Angaben werden nur dafür genutzt und gelöscht, wenn kein Vertrag zustande kommt. Widerruf jederzeit. <a href="datenschutz.html">Datenschutzerklärung</a></span></label>
+    <div class="err" id="err-save" aria-live="polite"></div>
+    <button class="btn glow" id="save" disabled>Spielstand speichern & anmelden</button>
+    <div class="secure">🔒 Verschlüsselt übertragen, keine Weitergabe.</div>
+  </section>
+
+  <!-- ========== DONE ========== -->
+  <section class="screen" id="s-done" aria-labelledby="h-done">
+    <div class="kicker" style="text-align:center">Quest angenommen</div>
+    <h2 id="h-done" style="text-align:center">Willkommen im Team, <span id="done-name">Player 1</span>!</h2>
+    <div class="card-wrap" id="card-wrap"><canvas id="card" width="600" height="840" aria-label="Deine AIRIS-Spielerkarte"></canvas></div>
+    <p style="text-align:center">Wir rufen dich innerhalb von 24 Stunden an. <strong>Zeig deine Spielerkarte im Studio</strong>: Zum Alten Paulshof 1–3, 51147 Köln.</p>
+    <ol class="timeline"><li><b>1</b><span>Wir melden uns innerhalb von 24 Stunden.</span></li><li><b>2</b><span>Ihr macht zusammen einen Termin aus.</span></li><li><b>3</b><span>Du kommst vorbei und spielst 4 Wochen gratis.</span></li></ol>
+    <div class="note" id="demo-note" hidden>Demo-Modus: Das Formular ist noch nicht verbunden, es wurde nichts gesendet.</div>
+    <div class="row2" id="card-btns"><button class="btn alt" id="card-dl">⬇ Karte speichern</button><button class="btn alt" id="card-share">Teilen</button></div>
+    <button class="btn" data-go="menu">Weiterspielen</button>
+  </section>
+
+  <footer>
+    <span>AIRIS Health Gaming Köln · Spielbar bei Körperformen Köln-Porz</span>
+    <a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a>
+  </footer>
+</div>
+
+<script>
+/* =========================================================================
+   KONFIGURATION – Google-Formular als Empfänger (siehe ANLEITUNG.md)
+   Solange action leer ist: Demo-Modus, es wird nichts gesendet.
+   ========================================================================= */
+const FORM = {
+  action: 'https://docs.google.com/forms/d/e/1FAIpQLSfDo0uXPY-oDOGanIQscEB1qfzO7uSoytwc-PL0sFbSTjDSew/formResponse',
+  fields: {
+    vorname: 'entry.590413805', telefon: 'entry.621515549', wunschzeit: 'entry.917927242', wunschtage: 'entry.1228474686',
+    kontaktweg: 'entry.1669439061', begleitung: 'entry.1450236495', altersgruppe: 'entry.130852945', quelle: 'entry.727154413',
+    klasse: 'entry.1305825477', spiel: 'entry.1918214522', score: 'entry.2122522622', weg: 'entry.1649875169', einwilligung: 'entry.1331195381',
+  },
+};
+
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const mem = {};
+  const store = { get(k, d) { if (k in mem) return mem[k]; try { const v = localStorage.getItem('airis_' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { mem[k] = v; try { localStorage.setItem('airis_' + k, JSON.stringify(v)); } catch (e) {} } };
+  const vibe = (p) => { try { navigator.vibrate && navigator.vibrate(p); } catch (e) {} };
+  const today = new Date(); const dayKey = today.toISOString().slice(0, 10); const dayIdx = Math.floor(today.getTime() / 864e5);
+  const seeded = (seed) => () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+
+  /* ===================== FX ===================== */
+  const fx = $('fx'), fc = fx.getContext('2d'); let parts = [], texts = [], fxOn = false;
+  const resize = () => { fx.width = innerWidth * devicePixelRatio; fx.height = innerHeight * devicePixelRatio; fc.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0); };
+  addEventListener('resize', resize); resize();
+  const COLS = () => [css('--accent'), css('--cyan'), css('--pink'), css('--gold'), css('--violet')];
+  function burst(x, y, color, n = 18, spread = 5) { if (RM || document.body.classList.contains('serious-mode')) return; const cs = COLS(); for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, s = Math.random() * spread + 1.5; parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 1.5, life: 1, size: Math.random() * 4 + 2, color: color || cs[i % cs.length] }); } loopFx(); }
+  function confetti() { if (RM) return; const cs = COLS(); for (let i = 0; i < 150; i++) parts.push({ x: Math.random() * innerWidth, y: -20 - Math.random() * 220, vx: (Math.random() - .5) * 2, vy: Math.random() * 2 + 2, life: 1.8, size: Math.random() * 5 + 3, color: cs[i % cs.length], spin: true }); loopFx(); }
+  function floatText(x, y, t, color) { if (RM) return; texts.push({ x, y, t, life: 1, color: color || css('--gold') }); loopFx(); }
+  const centerOf = (el) => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+  function loopFx() { if (fxOn) return; fxOn = true; const step = () => { fc.clearRect(0, 0, innerWidth, innerHeight); parts = parts.filter(p => p.life > 0); texts = texts.filter(t => t.life > 0); parts.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += p.spin ? .02 : .18; p.life -= p.spin ? .006 : .025; fc.globalAlpha = Math.max(0, Math.min(1, p.life)); fc.fillStyle = p.color; fc.fillRect(p.x, p.y, p.size, p.spin ? p.size * .6 : p.size); }); texts.forEach(t => { t.y -= .9; t.life -= .018; fc.globalAlpha = Math.max(0, t.life); fc.fillStyle = t.color; fc.font = '12px "Press Start 2P", monospace'; fc.textAlign = 'center'; fc.fillText(t.t, t.x, t.y); }); fc.globalAlpha = 1; if (parts.length || texts.length) requestAnimationFrame(step); else fxOn = false; }; requestAnimationFrame(step); }
+  let toastAt = 0;
+  function toast(t) { if (document.body.classList.contains('serious-mode')) return; const now = Date.now(), at = Math.max(now, toastAt); toastAt = at + 1400; setTimeout(() => { if (document.body.classList.contains('serious-mode')) return; const d = document.createElement('div'); d.className = 'toast'; d.textContent = t; document.body.append(d); setTimeout(() => d.remove(), 1700); }, at - now); }
+  function shake() { vibe(80); if (RM) return; const s = $('shell'); s.classList.remove('shake'); void s.offsetWidth; s.classList.add('shake'); }
+
+  /* ===================== SOUND ===================== */
+  let soundOn = false, ac = null;
+  function beep(f, d = .07, type = 'square', v = .05) { if (!soundOn) return; try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); const o = ac.createOscillator(), g = ac.createGain(); o.type = type; o.frequency.value = f; g.gain.value = v; g.gain.exponentialRampToValueAtTime(.0001, ac.currentTime + d); o.connect(g).connect(ac.destination); o.start(); o.stop(ac.currentTime + d); } catch (e) {} }
+  const jingle = (notes, gap = 90) => notes.forEach((n, i) => setTimeout(() => beep(n, .1), i * gap));
+  $('sound').addEventListener('click', () => { soundOn = !soundOn; $('sound').textContent = soundOn ? '🔊' : '🔇'; $('sound').setAttribute('aria-pressed', String(soundOn)); jingle([523, 659, 784]); });
+
+  /* ===================== XP ===================== */
+  let xp = store.get('xp', 0);
+  function renderXP() { const lvl = 1 + Math.floor(xp / 400); $('xp-lbl').textContent = 'XP ' + xp; $('lvl').textContent = 'LV' + lvl; $('xp-bar').style.width = ((xp % 400) / 4) + '%'; return lvl; }
+  function addXP(n, from) { const before = 1 + Math.floor(xp / 400); xp += n; store.set('xp', xp); const lvl = renderXP(); const [x, y] = from ? centerOf(from) : centerOf($('xp-bar')); floatText(x, y, '+' + n + ' XP'); beep(990, .05); if (lvl > before) { toast('LEVEL UP! LV' + lvl); jingle([523, 659, 784, 1047]); const [lx, ly] = centerOf($('lvl')); burst(lx, ly, null, 30, 6); } }
+  renderXP();
+
+  /* ===================== AVATAR ===================== */
+  const PAL = {
+    skin: ['#ffe0bd', '#f5c99b', '#e0ac69', '#c68642', '#8d5524', '#5c3a1e'],
+    hairColor: ['#1b1b1b', '#4a2c1a', '#8b5a2b', '#d4a017', '#f1e6c8', '#e85d3a', '#9be12f', '#2fd4ff', '#ff4fb8', '#9b7bff'],
+    outfit: ['#9be12f', '#2fd4ff', '#ffc93c', '#ff4fb8', '#ff7a45', '#9b7bff', '#f5f5f5', '#2b2f3a', '#e63946', '#00b894'],
+    bg: ['#9be12f', '#2fd4ff', '#ff4fb8', '#ffc93c', '#9b7bff', '#ff7a45', '#1c2433', '#0f8a5f'],
+  };
+  const OPTS = { hair: ['Kurz', 'Lang', 'Irokese', 'Locken', 'Glatze', 'Zopf', 'Undercut', 'Afro'], eyes: ['Normal', 'Fröhlich', 'Cool', 'Zwinkern', 'Entschlossen'], style: ['Shirt', 'Hoodie', 'Trikot', 'Jacke'], acc: ['Nichts', 'Cap', 'Headset', 'Brille', 'Krone', 'Stirnband', 'Bart', 'Ohrringe'] };
+  const DEF = { skin: 1, hair: 0, hairColor: 1, eyes: 0, outfit: 0, style: 0, acc: 0, bg: 0 };
+  let look = Object.assign({}, DEF, store.get('look', {}));
+  let player = store.get('player', { name: '', klasse: '' });
+  let best = store.get('best', {});
+  const drawn = [];
+
+  function drawAvatar(cv, mood = 'idle', frame = 0, lk = look, withBg = false) {
+    const g = cv.getContext('2d'); g.clearRect(0, 0, 16, 16);
+    if (withBg) { g.fillStyle = PAL.bg[lk.bg]; g.fillRect(0, 0, 16, 16); }
+    const P = (x, y, c, w = 1, h = 1) => { g.fillStyle = c; g.fillRect(x, y, w, h); };
+    const sk = PAL.skin[lk.skin], hc = PAL.hairColor[lk.hairColor], oc = PAL.outfit[lk.outfit], dark = '#141414';
+    const by = ((mood === 'idle' && frame % 2) || mood === 'jump') ? -1 : 0;
+    // body by style
+    P(4, 11 + by, oc, 8, 5); P(3, 12 + by, sk, 1, 2); P(12, 12 + by, sk, 1, 2);
+    if (lk.style === 1) { P(3, 11 + by, oc, 10, 5); P(5, 11 + by, 'rgba(0,0,0,.2)', 1, 3); P(10, 11 + by, 'rgba(0,0,0,.2)', 1, 3); P(6, 14 + by, 'rgba(0,0,0,.18)', 4, 1); }
+    if (lk.style === 2) { P(4, 11 + by, '#ffffff', 1, 5); P(11, 11 + by, '#ffffff', 1, 5); P(7, 12 + by, '#ffffff', 2, 2); }
+    if (lk.style === 3) { P(7, 11 + by, '#f5f5f5', 2, 5); P(6, 11 + by, 'rgba(0,0,0,.25)', 1, 5); P(9, 11 + by, 'rgba(0,0,0,.25)', 1, 5); }
+    if (mood === 'cheer' || mood === 'jump') { P(2, 9 + by, sk, 1, 3); P(13, 9 + by, sk, 1, 3); P(3, 12 + by, oc, 1, 1); P(12, 12 + by, oc, 1, 1); }
+    // head
+    P(4, 3 + by, sk, 8, 8); P(3, 5 + by, sk, 1, 3); P(12, 5 + by, sk, 1, 3);
+    const H = lk.hair;
+    if (H === 0) { P(4, 2 + by, hc, 8, 2); P(4, 4 + by, hc, 1, 1); P(11, 4 + by, hc, 1, 1); }
+    if (H === 1) { P(4, 2 + by, hc, 8, 2); P(3, 3 + by, hc, 1, 7); P(12, 3 + by, hc, 1, 7); P(4, 4 + by, hc, 1, 2); P(11, 4 + by, hc, 1, 2); }
+    if (H === 2) { P(7, 0 + by, hc, 2, 4); P(6, 1 + by, hc, 1, 2); P(9, 1 + by, hc, 1, 2); }
+    if (H === 3) { for (let x = 3; x < 13; x += 2) P(x, 2 + by, hc, 2, 2); P(3, 4 + by, hc, 1, 2); P(12, 4 + by, hc, 1, 2); P(4, 1 + by, hc, 8, 1); }
+    if (H === 5) { P(4, 2 + by, hc, 8, 2); P(12, 4 + by, hc, 1, 1); P(13, 5 + by, hc, 1, 4); }
+    if (H === 6) { P(5, 1 + by, hc, 7, 2); P(4, 3 + by, 'rgba(0,0,0,.25)', 1, 2); P(11, 3 + by, hc, 1, 2); }
+    if (H === 7) { P(2, 1 + by, hc, 12, 4); P(1, 3 + by, hc, 1, 4); P(14, 3 + by, hc, 1, 4); P(2, 5 + by, hc, 1, 3); P(13, 5 + by, hc, 1, 3); }
+    const blink = mood === 'idle' && frame % 7 === 6;
+    const E = mood === 'sad' ? 'sad' : (mood === 'cheer' || mood === 'jump') ? 'happy' : ['n', 'happy', 'cool', 'wink', 'det'][lk.eyes];
+    if (blink) { P(5, 7 + by, dark, 2, 1); P(9, 7 + by, dark, 2, 1); }
+    else if (E === 'happy') { P(5, 6 + by, dark); P(6, 5 + by, dark); P(7, 6 + by, dark); P(9, 6 + by, dark); P(10, 5 + by, dark); P(11, 6 + by, dark); }
+    else if (E === 'cool') { P(4, 6 + by, dark, 8, 2); P(5, 6 + by, '#4a4a4a', 2, 1); P(9, 6 + by, '#4a4a4a', 2, 1); }
+    else if (E === 'wink') { P(5, 6 + by, dark, 2, 2); P(9, 7 + by, dark, 2, 1); }
+    else if (E === 'det') { P(5, 5 + by, dark, 2, 1); P(9, 5 + by, dark, 2, 1); P(5, 7 + by, dark, 2, 1); P(9, 7 + by, dark, 2, 1); }
+    else if (E === 'sad') { P(5, 7 + by, dark, 2, 1); P(9, 7 + by, dark, 2, 1); P(5, 6 + by, dark); P(10, 6 + by, dark); }
+    else { P(5, 6 + by, dark, 2, 2); P(9, 6 + by, dark, 2, 2); P(5, 6 + by, '#fff'); P(9, 6 + by, '#fff'); }
+    if (mood === 'sad') { P(6, 9 + by, dark, 4, 1); P(5, 10 + by, dark); P(10, 10 + by, dark); }
+    else if (mood === 'cheer' || mood === 'jump') { P(6, 9 + by, dark, 4, 2); P(7, 10 + by, '#ff6b6b', 2, 1); }
+    else if (mood === 'think') { P(8, 9 + by, dark, 2, 1); }
+    else { P(6, 9 + by, dark, 4, 1); P(5, 8 + by, dark); P(10, 8 + by, dark); }
+    P(4, 8 + by, 'rgba(255,110,110,.35)'); P(11, 8 + by, 'rgba(255,110,110,.35)');
+    const A = lk.acc;
+    if (A === 1) { P(3, 1 + by, oc, 10, 2); P(10, 3 + by, oc, 4, 1); P(7, 1 + by, '#fff', 2, 1); }
+    if (A === 2) { P(4, 1 + by, '#2b2b2b', 8, 1); P(3, 2 + by, '#2b2b2b', 1, 3); P(12, 2 + by, '#2b2b2b', 1, 3); P(2, 5 + by, '#2b2b2b', 2, 3); P(12, 5 + by, '#2b2b2b', 2, 3); P(2, 6 + by, '#9be12f'); }
+    if (A === 3) { P(4, 6 + by, '#f2f2f2', 3, 2); P(9, 6 + by, '#f2f2f2', 3, 2); P(7, 6 + by, '#f2f2f2', 2, 1); P(5, 7 + by, dark); P(10, 7 + by, dark); }
+    if (A === 4) { P(5, 0 + by, '#ffc93c', 6, 2); P(7, 1 + by, '#ff4fb8', 2, 1); }
+    if (A === 5) { P(4, 3 + by, '#ff4fb8', 8, 1); P(12, 3 + by, '#ff4fb8', 2, 1); P(13, 4 + by, '#ff4fb8', 1, 2); }
+    if (A === 6) { P(4, 9 + by, hc, 1, 2); P(11, 9 + by, hc, 1, 2); P(5, 10 + by, hc, 6, 1); P(6, 9 + by, hc, 4, 1); P(7, 9 + by, dark, 2, 1); }
+    if (A === 7) { P(3, 8 + by, '#ffc93c'); P(12, 8 + by, '#ffc93c'); }
+    if (mood === 'think') { P(13, 1, '#ffffff', 2, 2); P(14, 3, '#ffffff'); }
+  }
+  function register(cv, mood = 'idle', bg = false) { drawn.push({ cv, mood, bg }); drawAvatar(cv, mood, 0, look, bg); }
+  ['hdr-av', 'menu-av', 're-av', 'si-av', 'qz-av', 'r-av', 'l1-av', 'l2-av', 'l3-av', 'l4-av'].forEach(id => register($(id), 'idle', id === 'hdr-av'));
+  register($('ed-av'));
+  const setMood = (id, mood, ms) => { const d = drawn.find(x => x.cv.id === id); if (!d) return; d.mood = mood; drawAvatar(d.cv, mood, frameN, look, d.bg); if (ms) { clearTimeout(d.t); d.t = setTimeout(() => { d.mood = 'idle'; drawAvatar(d.cv, 'idle', frameN, look, d.bg); }, ms); } };
+  let frameN = 0; setInterval(() => { frameN++; drawn.forEach(d => { if (d.cv.offsetParent) drawAvatar(d.cv, d.mood, frameN, look, d.bg); }); }, 420);
+  const redrawAll = () => { drawn.forEach(d => drawAvatar(d.cv, d.mood, frameN, look, d.bg)); $('edstage').style.background = `radial-gradient(circle at 50% 75%, rgba(255,255,255,.28), transparent 60%), ${PAL.bg[look.bg]}`; };
+  $('hdr-char').addEventListener('click', () => show('editor'));
+  $('ed-av').addEventListener('click', () => { setMood('ed-av', 'jump', 600); const [x, y] = centerOf($('ed-av')); burst(x, y, null, 14, 4); beep(880, .05); });
+
+  /* ===================== NAV ===================== */
+  const SCREENS = ['start', 'plain', 'thanks', 'menu', 'editor', 'count', 'reaction', 'dodge', 'simon', 'quiz', 'result', 'lead1', 'lead2', 'lead3', 'lead4', 'done'];
+  const charDone = () => store.get('charDone', false);
+  function show(name) {
+    if (name === 'lead1' && !charDone()) { toast('ERST CHARAKTER BAUEN!'); name = 'editor'; afterEditor = 'lead1'; }
+    SCREENS.forEach(s => $('s-' + s).classList.toggle('on', s === name));
+    const serious = ['plain', 'start', 'thanks'].includes(name);
+    document.body.classList.toggle('serious-mode', name === 'plain' || name === 'thanks');
+    $('xpline').hidden = serious; $('hdr-char').hidden = serious || !charDone();
+    const f = $('s-' + name).querySelector('h1,h2,.count,.big'); if (f) { f.setAttribute('tabindex', '-1'); f.focus({ preventScroll: true }); }
+    window.scrollTo(0, 0);
+    if (name === 'editor') openEditor(); if (name === 'menu') renderMenu(); if (name === 'lead1') buildTimes(); if (name === 'lead2') buildBeg(); if (name === 'lead3') buildL3(); if (name === 'plain') buildPlain();
+  }
+  document.addEventListener('click', (e) => { const b = e.target.closest('[data-go]'); if (b) { e.preventDefault(); beep(600, .04); quitGames(); show(b.dataset.go); } });
+  $('home').addEventListener('click', (e) => { e.preventDefault(); quitGames(); show(charDone() ? 'menu' : 'start'); });
+
+  /* ===================== ROTATION, QUEST, BOTS ===================== */
+  const GAMES = { reaction: ['⚡', 'Leuchtet’s?', 'Reaktion · 20 s'], dodge: ['🕹️', 'Dodge', 'Ausweichen · 3 Leben'], simon: ['🧠', 'Merk’s dir', 'Folge nachspielen'], quiz: ['❓', 'Gamer-Typ', '5 Fragen'] };
+  const SCORED = ['reaction', 'dodge', 'simon'];
+  const featured = SCORED[dayIdx % 3];
+  const QUESTS = [['reaction', 18, 'Schaff heute 18 Treffer in „Leuchtet’s?“'], ['dodge', 20, 'Hol heute 20 Punkte in „Dodge“'], ['simon', 5, 'Schaff heute Level 5 in „Merk’s dir“'], ['reaction', 24, 'Combo-Tag: 24 Treffer in „Leuchtet’s?“'], ['dodge', 28, 'Profi-Tag: 28 Punkte in „Dodge“'], ['simon', 7, 'Gedächtnis-Tag: Level 7 in „Merk’s dir“']];
+  const quest = QUESTS[dayIdx % QUESTS.length];
+  const questDone = () => store.get('quest-' + dayKey, false);
+  const BOTS = [['🤖', 'BYTE-BOT'], ['👾', 'PIXEL-BOT'], ['🛸', 'GLITCH-BOT'], ['🦾', 'TURBO-BOT'], ['🎛️', 'LAG-BOT']];
+  const BASE = { reaction: [14, 30], dodge: [10, 40], simon: [3, 10] };
+  function botScores(game) { const r = seeded(dayIdx * 7 + game.length * 13); const [lo, hi] = BASE[game]; return BOTS.map(([e, n]) => ({ e, n, s: Math.round(lo + r() * (hi - lo)) })); }
+  function renderBoard(el, game, mine) {
+    const rows = botScores(game); if (mine !== undefined) rows.push({ me: true, n: player.name || 'Du', s: mine });
+    rows.sort((a, b) => b.s - a.s);
+    const head = document.createElement('div'); head.className = 'head'; const h = document.createElement('h3'); h.id = el.id + '-h'; h.textContent = 'Tagesrangliste · ' + GAMES[game][1]; const sm = document.createElement('small'); sm.textContent = today.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' }); head.append(h, sm);
+    const list = rows.slice(0, 6).map((r, i) => { const d = document.createElement('div'); d.className = 'brow' + (r.me ? ' me' : ''); const rk = document.createElement('span'); rk.className = 'rk'; rk.textContent = i + 1; let ic; if (r.me) { ic = document.createElement('canvas'); ic.width = 16; ic.height = 16; drawAvatar(ic, 'cheer', 0, look, true); } else { ic = document.createElement('span'); ic.className = 'bot'; ic.textContent = r.e; } const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = r.me ? (r.n + ' (du)') : r.n; const sc = document.createElement('span'); sc.className = 'sc'; sc.textContent = r.s; d.append(rk, ic, nm, sc); return d; });
+    if (mine === undefined && best[game] !== undefined) { /* show own best hint */ }
+    const note = document.createElement('div'); note.className = 'note'; note.textContent = mine === undefined ? 'Die Bots sind Computergegner mit täglich neuen Scores. Spiel und trag dich ein!' : 'Bots = Computergegner, keine echten Spieler. Morgen gibt es neue Scores.';
+    el.replaceChildren(head, ...list, note);
+  }
+
+  /* ===================== MENU ===================== */
+  function renderMenu() {
+    $('menu-create').textContent = charDone() ? '🎨 Charakter bearbeiten' : '🎨 Charakter erstellen';
+    const n = player.name; const g = GAMES[featured][1];
+    const lines = charDone() ? [`Hi ${n}! Heute gibt's bei „${g}“ doppelte XP.`, `${n}, schlägst du heute den BYTE-BOT?`, `Tagesquest wartet, ${n}. Los geht's!`] : ['Hi! Bau dir zuerst deinen Charakter, dann geht’s los.'];
+    $('menu-bubble').textContent = lines[frameN % lines.length];
+    $('daily-q').textContent = '🎯 Tagesquest: ' + quest[2]; $('daily-done').textContent = questDone() ? '✓ ERLEDIGT' : '+300 XP'; $('daily-s').textContent = 'Neue Quest und neues Spiel des Tages jeden Tag um Mitternacht.';
+    $('games').replaceChildren(...Object.entries(GAMES).map(([k, [ico, t, sub]]) => { const b = document.createElement('button'); b.className = 'game' + (k === featured ? ' featured' : ''); b.dataset.game = k; const i = document.createElement('span'); i.className = 'ico'; i.textContent = ico; const tb = document.createElement('b'); tb.textContent = t; const s = document.createElement('small'); s.textContent = sub; b.append(i, tb, s); if (k === featured) { const tg = document.createElement('span'); tg.className = 'tag hot'; tg.textContent = '2× XP'; b.append(tg); } else if (best[k] !== undefined) { const tg = document.createElement('span'); tg.className = 'tag best'; tg.textContent = 'BEST ' + best[k]; b.append(tg); } b.addEventListener('click', () => startGame(k)); return b; }));
+    renderBoard($('board'), featured);
+    setMood('menu-av', charDone() ? 'cheer' : 'idle', 900);
+  }
+
+  /* ===================== EDITOR ===================== */
+  const CLASSES = [['⚡', 'Speedrunner', 'Schnell, ehrgeizig, will den Highscore', [9, 5, 4, 4]], ['🛡️', 'Tank', 'Ausdauernd, spielt alles durch', [4, 9, 5, 4]], ['🤝', 'Support', 'Kommt am liebsten mit Freunden', [5, 6, 9, 5]], ['😎', 'Casual Gamer', 'Will einfach Spaß haben', [5, 4, 6, 9]]];
+  const TABS = [['hair', 'Frisur'], ['hairColor', 'Haarfarbe'], ['skin', 'Haut'], ['eyes', 'Augen'], ['style', 'Kleidung'], ['outfit', 'Farbe'], ['acc', 'Extra'], ['bg', 'Hintergrund']];
+  let edTab = 'hair', history = [], afterEditor = null;
+  function openEditor() { $('in-name').value = player.name || ''; renderTabs(); renderSw(); renderClasses(); renderStats(); updateStage(); redrawAll(); }
+  function renderTabs() { $('ed-tabs').replaceChildren(...TABS.map(([k, l]) => { const b = document.createElement('button'); b.textContent = l; b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', String(edTab === k)); b.addEventListener('click', () => { edTab = k; renderTabs(); renderSw(); beep(500, .03); }); return b; })); }
+  function renderSw() {
+    const list = PAL[edTab] || OPTS[edTab]; const isColor = !!PAL[edTab];
+    $('ed-sw').replaceChildren(...list.map((v, i) => { const b = document.createElement('button'); b.className = 'sw'; b.setAttribute('aria-pressed', String(look[edTab] === i)); if (isColor) { b.style.background = v; b.setAttribute('aria-label', TABS.find(t => t[0] === edTab)[1] + ' ' + (i + 1)); } else { const c = document.createElement('canvas'); c.width = 16; c.height = 16; drawAvatar(c, 'idle', 0, { ...look, [edTab]: i }); b.append(c); b.title = v; b.setAttribute('aria-label', v); } b.addEventListener('click', () => { history.push({ ...look }); look[edTab] = i; store.set('look', look); renderSw(); redrawAll(); const [x, y] = centerOf($('ed-av')); burst(x, y, null, 10, 3); beep(700 + i * 30, .05); setMood('ed-av', 'cheer', 600); }); return b; }));
+  }
+  function renderClasses() { $('classes').replaceChildren(...CLASSES.map(([e, t, sub]) => { const b = document.createElement('button'); b.className = 'opt'; b.setAttribute('aria-pressed', String(player.klasse === t)); const s = document.createElement('span'); s.className = 'e'; s.textContent = e; const d = document.createElement('span'); d.textContent = t; const sm = document.createElement('small'); sm.textContent = sub; d.append(sm); b.append(s, d); b.addEventListener('click', () => { player.klasse = t; store.set('player', player); renderClasses(); renderStats(); updateStage(); const [x, y] = centerOf(b); burst(x, y, null, 14); beep(820, .06); }); return b; })); }
+  function renderStats() { const c = CLASSES.find(c => c[1] === player.klasse); const v = c ? c[3] : [5, 5, 5, 5]; $('stats').replaceChildren(...['Speed', 'Ausdauer', 'Teamplay', 'Chill'].map((n, i) => { const r = document.createElement('div'); r.className = 'stat'; const l = document.createElement('span'); l.textContent = n; const b = document.createElement('div'); b.className = 'b'; const fi = document.createElement('i'); fi.style.width = v[i] * 10 + '%'; b.append(fi); const num = document.createElement('span'); num.textContent = v[i]; r.append(l, b, num); return r; })); }
+  function updateStage() { $('ed-nm').textContent = (player.name || 'Player 1').toUpperCase(); $('ed-cl').textContent = player.klasse ? player.klasse : 'Klasse wählen'; }
+  $('in-name').addEventListener('input', (e) => { player.name = e.target.value.trim(); store.set('player', player); updateStage(); e.target.removeAttribute('aria-invalid'); });
+  const rnd = (a) => Math.floor(Math.random() * a.length);
+  $('dice').addEventListener('click', () => { history.push({ ...look }); look = { skin: rnd(PAL.skin), hair: rnd(OPTS.hair), hairColor: rnd(PAL.hairColor), eyes: rnd(OPTS.eyes), outfit: rnd(PAL.outfit), style: rnd(OPTS.style), acc: rnd(OPTS.acc), bg: rnd(PAL.bg) }; store.set('look', look); renderSw(); redrawAll(); const [x, y] = centerOf($('ed-av')); burst(x, y, null, 26, 5); setMood('ed-av', 'jump', 600); jingle([400, 600, 800]); });
+  $('ed-undo').addEventListener('click', () => { const prev = history.pop(); if (!prev) return; look = prev; store.set('look', look); renderSw(); redrawAll(); beep(300, .05); });
+  $('ed-done').addEventListener('click', (e) => {
+    if ((player.name || '').length < 2) { $('err-name').textContent = 'Gib deinem Charakter einen Namen (mindestens 2 Buchstaben).'; $('in-name').setAttribute('aria-invalid', 'true'); $('in-name').focus(); shake(); return; }
+    if (!player.klasse) { $('err-name').textContent = 'Wähl noch eine Klasse.'; shake(); return; }
+    $('err-name').textContent = ''; const first = !charDone(); store.set('charDone', true);
+    if (first) { addXP(200, e.target); toast('CHARAKTER BEREIT!'); }
+    const next = afterEditor; afterEditor = null;
+    if (next && GAMES[next]) startGame(next); else show(next || 'menu');
+  });
+
+  /* ===================== GAMES ===================== */
+  let lastGame = null, lastShare = '';
+  function startGame(k) { if (!charDone() && k !== 'quiz') { afterEditor = k; toast('ERST CHARAKTER BAUEN!'); show('editor'); return; } lastGame = k; ({ reaction: startReaction, dodge: startDodge, simon: startSimon, quiz: startQuiz })[k](); }
+  function quitGames() { if (re) { clearTimeout(re.to); re = null; pads.forEach(p => p.classList.remove('lit', 'gold')); } dg = null; si = null; }
+  document.querySelectorAll('[data-quit]').forEach(b => b.addEventListener('click', () => { quitGames(); show('menu'); }));
+  const record = (g, v) => { const old = best[g]; if (old === undefined || v > old) { best[g] = v; store.set('best', best); return old !== undefined; } return false; };
+  function countdown(then) { show('count'); let n = 3; const c = $('count'); const tick = () => { c.textContent = n > 0 ? n : 'GO!'; c.classList.remove('pop'); void c.offsetWidth; c.classList.add('pop'); beep(n > 0 ? 440 : 880, n > 0 ? .08 : .2); if (n <= 0) { setTimeout(then, 400); return; } n--; setTimeout(tick, 650); }; tick(); }
+  function result(game, { big, line, badge, kicker = 'Game Over? Continue!', share, isNew, score }) {
+    $('r-big').textContent = big; $('r-line').textContent = line; $('r-badge').textContent = badge; $('r-kicker').textContent = kicker; lastShare = share; $('r-newbest').hidden = !isNew;
+    let qDone = false; if (score !== undefined && quest[0] === game && score >= quest[1] && !questDone()) { store.set('quest-' + dayKey, true); qDone = true; }
+    $('r-quest').hidden = !qDone;
+    if (SCORED.includes(game) && score !== undefined) { $('r-board').hidden = false; renderBoard($('r-board'), game, score); } else $('r-board').hidden = true;
+    $('r-cta').hidden = store.get('saved', false);
+    setMood('r-av', score === 0 ? 'sad' : 'cheer', 1500); show('result');
+    const mult = game === featured ? 2 : 1; addXP(150 * mult, $('r-big')); if (mult === 2) setTimeout(() => toast('2× XP SPIEL DES TAGES'), 600);
+    if (qDone) setTimeout(() => { addXP(300, $('r-quest')); toast('TAGESQUEST GESCHAFFT!'); confetti(); }, 1200);
+    if (isNew) setTimeout(() => { toast('NEUER REKORD!'); confetti(); jingle([659, 784, 988, 1319], 110); }, 400); else jingle([523, 659, 784]);
+  }
+
+  // --- reaction ---
+  const KEYS = ['q','w','e','a','s','d','y','x','c'], NUMS = ['7','8','9','4','5','6','1','2','3'];
+  const pads = []; let re = null;
+  for (let i = 0; i < 9; i++) { const b = document.createElement('button'); b.className = 'pad'; b.setAttribute('aria-label', 'Feld ' + (i + 1)); const k = document.createElement('span'); k.className = 'k'; k.textContent = KEYS[i].toUpperCase(); b.append(k); b.addEventListener('pointerdown', (e) => { e.preventDefault(); reHit(i); }); $('re-grid').append(b); pads.push(b); }
+  function reNext() { if (!re) return; let i; do { i = Math.floor(Math.random() * 9); } while (i === re.lit); if (re.lit >= 0) pads[re.lit].classList.remove('lit', 'gold'); re.lit = i; re.gold = Math.random() < .14; re.at = performance.now(); pads[i].classList.add('lit'); if (re.gold) pads[i].classList.add('gold'); const p = (performance.now() - re.t0) / 20000; clearTimeout(re.to); re.to = setTimeout(() => { if (re) { re.combo = 0; $('re-combo').textContent = ''; reNext(); } }, Math.max(420, 1000 - p * 560)); }
+  function reHit(i) {
+    if (!re) return; const p = pads[i];
+    if (i === re.lit) { const pts = re.gold ? 3 : 1; re.hits += pts; re.combo++; re.rts.push(performance.now() - re.at); beep(re.gold ? 1320 : 520 + Math.min(re.combo, 20) * 25); vibe(15); const [x, y] = centerOf(p); burst(x, y, re.gold ? css('--gold') : null, 10 + Math.min(re.combo, 12)); if (re.gold) floatText(x, y - 10, '+3'); p.classList.remove('lit', 'gold'); p.classList.add('ok'); setTimeout(() => p.classList.remove('ok'), 110); $('re-score').textContent = re.hits; if (re.combo >= 3) { const c = $('re-combo'); c.textContent = 'x' + re.combo + ' COMBO!'; c.classList.remove('pop'); void c.offsetWidth; c.classList.add('pop'); if (re.combo % 5 === 0) floatText(x, y - 24, 'ON FIRE!', css('--pink')); } setMood('re-av', 'cheer', 300); reNext(); }
+    else { re.wrong++; re.combo = 0; $('re-combo').textContent = ''; beep(140, .12, 'sawtooth', .04); vibe([30, 30, 30]); p.classList.add('miss'); setTimeout(() => p.classList.remove('miss'), 250); setMood('re-av', 'sad', 400); }
+  }
+  function startReaction() { countdown(() => { show('reaction'); pads.forEach(p => p.classList.remove('lit', 'gold')); re = { t0: performance.now(), hits: 0, wrong: 0, rts: [], lit: -1, combo: 0 }; $('re-score').textContent = '0'; $('re-combo').textContent = ''; reNext(); const tick = () => { if (!re) return; const left = Math.max(0, 20000 - (performance.now() - re.t0)); $('re-time').textContent = (left / 1000).toFixed(1); $('re-bar').style.transform = `scaleX(${left / 20000})`; if (left <= 0) { const r = re; re = null; clearTimeout(r.to); pads.forEach(p => p.classList.remove('lit', 'gold')); const acc = r.rts.length + r.wrong ? Math.round(r.rts.length / (r.rts.length + r.wrong) * 100) : 0; const rt = r.rts.length ? Math.round(r.rts.reduce((a, b) => a + b, 0) / r.rts.length) : 0; const t = r.hits >= 32 ? 'Main Character' : r.hits >= 22 ? 'Speedrunner' : r.hits >= 12 ? 'Casual Player' : 'Couch-Profi'; const isNew = record('reaction', r.hits); player.spiel = 'Reaktion'; player.score = r.hits + ' Punkte'; result('reaction', { big: r.hits, score: r.hits, line: `Punkte · ${acc} % genau · Reaktion Ø ${rt} ms`, badge: t, isNew, share: `${player.name || 'Ich'} hat ${r.hits} Punkte im AIRIS-Reaktionstest (${t}) ⚡ Schaffst du mehr?` }); return; } requestAnimationFrame(tick); }; requestAnimationFrame(tick); }); }
+
+  // --- dodge ---
+  const cv = $('dodge'), cx = cv.getContext('2d'); cx.imageSmoothingEnabled = false; let dg = null;
+  const sprite = document.createElement('canvas'); sprite.width = 16; sprite.height = 16;
+  function startDodge() { countdown(() => { show('dodge'); dg = { lane: 1, x: 150, blocks: [], coins: [], trail: [], score: 0, lives: 3, t0: performance.now(), last: performance.now(), spawn: 0, inv: 0, lean: 0, f: 0 }; $('do-score').textContent = '0'; $('do-lives').textContent = '♥♥♥'; requestAnimationFrame(dLoop); }); }
+  const move = (d) => { if (!dg) return; const nl = Math.max(0, Math.min(2, dg.lane + d)); if (nl !== dg.lane) { dg.lane = nl; dg.lean = d; beep(300, .03); } };
+  $('do-l').addEventListener('pointerdown', (e) => { e.preventDefault(); move(-1); }); $('do-r').addEventListener('pointerdown', (e) => { e.preventDefault(); move(1); });
+  let tx = null; cv.addEventListener('pointerdown', (e) => { tx = e.clientX; }); cv.addEventListener('pointerup', (e) => { if (tx === null) return; const dx = e.clientX - tx; const r = cv.getBoundingClientRect(); if (Math.abs(dx) > 25) move(dx > 0 ? 1 : -1); else move(e.clientX - r.left < r.width / 2 ? -1 : 1); tx = null; });
+  function dLoop(now) {
+    if (!dg) return; const dt = Math.min(50, now - dg.last); dg.last = now; dg.f++; const el = (now - dg.t0) / 1000; const speed = 150 + el * 9;
+    const W = 300, H = 400, lw = W / 3; dg.x += (dg.lane * lw + lw / 2 - dg.x) * .3; dg.lean *= .85;
+    dg.spawn -= dt; if (dg.spawn <= 0) { const free = Math.floor(Math.random() * 3); const two = el > 12 && Math.random() < .35; for (let l = 0; l < 3; l++) if (l !== free && (two || l === (free + 1 + Math.floor(Math.random() * 2)) % 3)) dg.blocks.push({ lane: l, y: -40 }); if (Math.random() < .4) dg.coins.push({ lane: free, y: -80 }); dg.spawn = Math.max(380, 900 - el * 22); }
+    const bg = css('--panel'), grid = css('--line'), acc = css('--accent'), bad = css('--bad'), gold = css('--gold');
+    cx.fillStyle = bg; cx.fillRect(0, 0, W, H);
+    const off = (el * speed * .5) % 40; cx.strokeStyle = grid; cx.globalAlpha = .6; for (let y = -40 + off; y < H; y += 40) { cx.beginPath(); cx.moveTo(0, y); cx.lineTo(W, y); cx.stroke(); } cx.globalAlpha = 1;
+    for (let i = 1; i < 3; i++) { cx.strokeStyle = grid; cx.beginPath(); cx.moveTo(i * lw, 0); cx.lineTo(i * lw, H); cx.stroke(); }
+    const py = H - 56; [...dg.blocks, ...dg.coins].forEach(b => { b.y += speed * dt / 1000; });
+    const rect = cv.getBoundingClientRect(), sx = rect.width / W, sy = rect.height / H;
+    dg.blocks = dg.blocks.filter(b => { if (b.y > H) { dg.score++; $('do-score').textContent = dg.score; return false; } if (!dg.inv && b.lane === dg.lane && b.y + 30 > py - 20 && b.y < py + 20) { dg.lives--; dg.inv = 900; shake(); beep(120, .2, 'sawtooth', .06); burst(rect.left + dg.x * sx, rect.top + py * sy, bad, 24, 6); $('do-lives').textContent = '♥'.repeat(Math.max(0, dg.lives)) + '♡'.repeat(3 - Math.max(0, dg.lives)); return false; } return true; });
+    dg.coins = dg.coins.filter(c => { if (c.y > H) return false; if (c.lane === dg.lane && Math.abs(c.y - py) < 24) { dg.score += 2; $('do-score').textContent = dg.score; beep(1200, .05); burst(rect.left + dg.x * sx, rect.top + py * sy, gold, 12, 4); floatText(rect.left + dg.x * sx, rect.top + (py - 30) * sy, '+2'); return false; } return true; });
+    dg.blocks.forEach(b => { const x = b.lane * lw + 16, w = lw - 32; cx.fillStyle = bad; cx.fillRect(x, b.y, w, 30); cx.fillStyle = 'rgba(0,0,0,.22)'; cx.fillRect(x, b.y + 24, w, 6); cx.fillStyle = '#141414'; cx.fillRect(x + w / 2 - 9, b.y + 9, 5, 5); cx.fillRect(x + w / 2 + 4, b.y + 9, 5, 5); });
+    dg.coins.forEach(c => { const x = c.lane * lw + lw / 2; const s = Math.abs(Math.sin(now / 150)) * 7 + 2; cx.fillStyle = gold; cx.fillRect(x - s / 2, c.y - 8, s, 16); });
+    dg.trail.push(dg.x); if (dg.trail.length > 6) dg.trail.shift(); dg.trail.forEach((tx2, i) => { cx.globalAlpha = i / 12; cx.fillStyle = PAL.outfit[look.outfit]; cx.fillRect(tx2 - 10, py + 6 + (6 - i) * 3, 20, 4); }); cx.globalAlpha = 1;
+    dg.inv = Math.max(0, dg.inv - dt);
+    if (!(dg.inv && Math.floor(now / 90) % 2)) { drawAvatar(sprite, dg.inv ? 'sad' : 'jump', dg.f >> 3); cx.save(); cx.translate(dg.x, py); cx.rotate(dg.lean * -.25); cx.drawImage(sprite, -24, -24, 48, 48); cx.restore(); }
+    if (dg.lives <= 0 || el >= 45) { const s = dg.score; dg = null; const t = s >= 50 ? 'Matrix-Modus' : s >= 32 ? 'Speedrunner' : s >= 16 ? 'Casual Player' : 'Couch-Profi'; const isNew = record('dodge', s); player.spiel = 'Dodge'; player.score = s + ' Punkte'; result('dodge', { big: s, score: s, line: `${player.name || 'Dein Charakter'} ist ausgewichen und hat Münzen gesammelt. An der AIRIS weichst du mit dem ganzen Körper aus.`, badge: t, isNew, share: `${player.name || 'Ich'} hat ${s} Punkte im AIRIS-Dodge (${t}) 🕹️ Schaffst du mehr?` }); return; }
+    requestAnimationFrame(dLoop);
+  }
+
+  // --- simon ---
+  const sButtons = [...document.querySelectorAll('#si-grid .simon')], sTones = [330, 415, 523, 659]; let si = null;
+  const sCol = (i) => css(['--accent', '--cyan', '--gold', '--pink'][i]);
+  const flash = (i, ms = 380) => new Promise(r => { sButtons[i].classList.add('on'); beep(sTones[i], ms / 1000, 'triangle', .08); setTimeout(() => { sButtons[i].classList.remove('on'); setTimeout(r, 110); }, ms); });
+  async function siPlay() { si.input = false; $('si-state').textContent = 'Schau zu…'; setMood('si-av', 'think'); await new Promise(r => setTimeout(r, 550)); for (const i of si.seq) { if (!si) return; await flash(i, Math.max(220, 420 - si.seq.length * 15)); } if (!si) return; si.input = true; si.pos = 0; $('si-state').textContent = 'Du bist dran!'; setMood('si-av', 'idle'); }
+  function startSimon() { countdown(() => { show('simon'); si = { seq: [Math.floor(Math.random() * 4)], pos: 0, input: false }; $('si-level').textContent = '1'; siPlay(); }); }
+  function siPress(i) {
+    if (!si || !si.input) return; flash(i, 150); const [x, y] = centerOf(sButtons[i]); burst(x, y, sCol(i), 8, 3); vibe(12);
+    if (i !== si.seq[si.pos]) { const lvl = si.seq.length - 1; si = null; beep(110, .35, 'sawtooth', .05); shake(); setMood('si-av', 'sad'); const t = lvl >= 9 ? 'Gedächtnis-Boss' : lvl >= 6 ? 'Speedrunner' : lvl >= 3 ? 'Casual Player' : 'Couch-Profi'; const isNew = record('simon', lvl); player.spiel = 'Merk’s dir'; player.score = 'Level ' + lvl; setTimeout(() => result('simon', { big: lvl, score: lvl, line: 'Level geschafft. Konzentration plus Bewegung, genau so fühlt sich die AIRIS an.', badge: t, isNew, share: `${player.name || 'Ich'} hat Level ${lvl} im AIRIS-Merkspiel geschafft (${t}) 🧠` }), 450); return; }
+    si.pos++; if (si.pos >= si.seq.length) { si.input = false; setMood('si-av', 'cheer'); floatText(x, y - 30, 'LEVEL ' + (si.seq.length + 1), css('--accent')); si.seq.push(Math.floor(Math.random() * 4)); $('si-level').textContent = si.seq.length; setTimeout(siPlay, 420); }
+  }
+  sButtons.forEach((b, i) => b.addEventListener('pointerdown', (e) => { e.preventDefault(); siPress(i); }));
+
+  // --- quiz ---
+  const Q = [
+    ['Du startest ein neues Game. Was machst du zuerst?', [['⚡', 'Direkt los, Tutorial skippen', 'speed'], ['🛡️', 'Erst mal alles erkunden', 'tank'], ['🤝', 'Freunde einladen', 'support'], ['😎', 'Erst mal Snacks holen', 'casual']]],
+    ['Dein Lieblings-Schwierigkeitsgrad?', [['🔥', 'Hard Mode, sonst langweilig', 'speed'], ['🧱', 'Normal, aber 100 % durchspielen', 'tank'], ['👥', 'Egal, Hauptsache Koop', 'support'], ['🍿', 'Easy, ich will Spaß', 'casual']]],
+    ['Game Over. Und jetzt?', [['🔁', 'Sofort nochmal', 'speed'], ['📈', 'Strategie ändern, nochmal', 'tank'], ['💬', 'Team fragen, was schiefging', 'support'], ['🛋️', 'Morgen ist auch ein Tag', 'casual']]],
+    ['Welcher Controller passt zu dir?', [['🏃', 'Mein ganzer Körper', 'speed'], ['🎮', 'Klassisches Gamepad', 'tank'], ['📱', 'Handy, immer dabei', 'support'], ['🛋️', 'Fernbedienung zählt auch, oder?', 'casual']]],
+    ['Was zählt am Ende?', [['🏆', 'Der Highscore', 'speed'], ['✅', 'Alle Erfolge', 'tank'], ['🎉', 'Die Zeit mit anderen', 'support'], ['😂', 'Gelacht zu haben', 'casual']]],
+  ];
+  const TYPES = { speed: ['Speedrunner', '⚡', 'Immer volle Geschwindigkeit. An der AIRIS jagst du Bestzeiten.'], tank: ['Tank', '🛡️', 'Ausdauernd und gründlich. Du spielst jedes Level durch.'], support: ['Support', '🤝', 'Teamplayer durch und durch. Bring jemanden mit zur AIRIS!'], casual: ['Casual Gamer', '😎', 'Spaß zuerst. Genau dafür ist die AIRIS gemacht.'] };
+  let qz = null;
+  function startQuiz() { qz = { i: 0, pts: { speed: 0, tank: 0, support: 0, casual: 0 } }; show('quiz'); renderQ(); }
+  function renderQ() { const [q, opts] = Q[qz.i]; $('qz-n').textContent = `FRAGE ${qz.i + 1}/${Q.length}`; $('qz-q').textContent = q; setMood('qz-av', 'think'); const box = $('qz-opts'); box.classList.remove('stagger'); void box.offsetWidth; box.classList.add('stagger'); box.replaceChildren(...opts.map(([e, t, k]) => { const b = document.createElement('button'); b.className = 'opt'; const s = document.createElement('span'); s.className = 'e'; s.textContent = e; const tx3 = document.createElement('span'); tx3.textContent = t; b.append(s, tx3); b.addEventListener('click', () => { if (!qz) return; qz.pts[k]++; beep(600 + qz.i * 60); const [x, y] = centerOf(b); burst(x, y, null, 10, 3); setMood('qz-av', 'cheer'); b.setAttribute('aria-pressed', 'true'); setTimeout(() => { if (!qz) return; qz.i++; if (qz.i < Q.length) renderQ(); else quizEnd(); }, 260); }); return b; })); }
+  function quizEnd() { const k = Object.entries(qz.pts).sort((a, b) => b[1] - a[1])[0][0]; qz = null; const [name, emo, text] = TYPES[k]; const changed = player.klasse && player.klasse !== name; player.klasse = name; store.set('player', player); redrawAll(); player.spiel = 'Gamer-Typ-Quiz'; player.score = name; result('quiz', { big: emo, line: text + (changed ? ` Deine Klasse ist jetzt „${name}“.` : ''), badge: name, kicker: 'Dein Gamer-Typ', share: `${player.name || 'Ich'} ist ${name} ${emo} – und du? AIRIS Gamer-Typ-Test` }); }
+
+  $('r-again').addEventListener('click', () => lastGame && startGame(lastGame));
+  $('r-share').addEventListener('click', () => shareText(lastShare));
+  async function shareText(text, file) { const url = location.href.split('#')[0]; try { if (file && navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], text }); return; } if (navigator.share) { await navigator.share({ title: 'AIRIS Arcade', text, url }); return; } } catch (e) { if (e && e.name === 'AbortError') return; } try { await navigator.clipboard.writeText(text + ' ' + url); $('share-msg').textContent = 'Kopiert. Jetzt in WhatsApp oder Insta einfügen.'; } catch (e) { $('share-msg').textContent = text + ' ' + url; } }
+  document.addEventListener('keydown', (e) => {
+    const k = e.key.toLowerCase();
+    if (re) { let i = KEYS.indexOf(k); if (i < 0) i = NUMS.indexOf(k); if (i >= 0) { e.preventDefault(); reHit(i); } }
+    else if (dg) { if (k === 'arrowleft' || k === 'a') { e.preventDefault(); move(-1); } if (k === 'arrowright' || k === 'd') { e.preventDefault(); move(1); } }
+    else if (si && ['1','2','3','4'].includes(k)) { e.preventDefault(); siPress(Number(k) - 1); }
+  });
+
+  /* ===================== QUELLE (z. B. ?src=instagram im Bio-Link) ===================== */
+  const SRC_NAMES = { ig: 'Instagram', instagram: 'Instagram', tt: 'TikTok', tiktok: 'TikTok', fb: 'Facebook', facebook: 'Facebook', yt: 'YouTube', youtube: 'YouTube', qr: 'QR-Code / Flyer', flyer: 'QR-Code / Flyer', ads: 'Anzeige', studio: 'Im Studio' };
+  const qs = new URLSearchParams(location.search); const srcRaw = (qs.get('src') || qs.get('utm_source') || '').toLowerCase();
+  const autoSrc = SRC_NAMES[srcRaw] || (srcRaw ? srcRaw.slice(0, 30) : '');
+  const SRC_OPTS = ['Instagram', 'TikTok', 'Facebook', 'YouTube', 'Freunde', 'Im Studio', 'Anderes'];
+  function chips(id, list, obj, key, onPick) { $(id).replaceChildren(...list.map((t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.setAttribute('aria-pressed', String(obj[key] === t)); b.addEventListener('click', () => { obj[key] = obj[key] === t && !onPick ? '' : t; [...$(id).children].forEach(c => c.setAttribute('aria-pressed', String(c.textContent === obj[key]))); beep(650, .04); const [x, y] = centerOf(b); burst(x, y, null, 8, 3); onPick && onPick(); }); return b; })); }
+
+  /* ===================== LEAD (game path) ===================== */
+  const TIMES = [['☀️', 'Morning Quest', 'Vormittag'], ['🌤️', 'Afternoon Raid', 'Nachmittag'], ['🌙', 'Night Session', 'Abend'], ['🎲', 'Random Spawn', 'Egal, ruft einfach an']];
+  const BEG = [['🎮', 'Solo', 'Ich komme allein'], ['🤝', 'Koop', 'Mit Freund:in'], ['👨‍👩‍👧', 'Party', 'Mit Familie oder Gruppe']];
+  function optList(boxId, list, key, nextId, sayId) {
+    const box = $(boxId); box.classList.remove('stagger'); void box.offsetWidth; box.classList.add('stagger');
+    box.replaceChildren(...list.map(([e, t, sub]) => { const b = document.createElement('button'); b.className = 'opt'; b.setAttribute('aria-pressed', String(player[key] === sub)); const s = document.createElement('span'); s.className = 'e'; s.textContent = e; const d = document.createElement('span'); d.textContent = t; const sm = document.createElement('small'); sm.textContent = sub; d.append(sm); b.append(s, d); b.addEventListener('click', () => { player[key] = sub; [...box.children].forEach(c => c.setAttribute('aria-pressed', 'false')); b.setAttribute('aria-pressed', 'true'); $(nextId).disabled = false; beep(700); const [x, y] = centerOf(b); burst(x, y, null, 10, 3); if (sayId) { $(sayId).textContent = `${t}? Perfekt, ${player.name}!`; setMood(sayId.replace('-say', '-av'), 'cheer', 700); } }); return b; }));
+    $(nextId).disabled = !player[key];
+  }
+  const l1ok = () => { $('l1-next').disabled = !(player.zeit && player.tage); };
+  function buildTimes() { $('l1-say').textContent = `${player.name || 'Hey'}, wann bist du am liebsten online?`; optList('times', TIMES, 'zeit', 'l1-next', 'l1-say'); chips('days', ['Unter der Woche', 'Am Wochenende', 'Egal'], player, 'tage', l1ok); l1ok(); $('times').addEventListener('click', l1ok); }
+  function buildBeg() { optList('beg', BEG, 'begleitung', 'l2-next'); chips('ages', ['18–29', '30–44', '45–59', '60+'], player, 'alter'); }
+  function buildL3() { if (!player.kontakt) player.kontakt = 'Anruf'; chips('contact', ['Anruf', 'WhatsApp', 'Egal'], player, 'kontakt', () => {}); $('src-field').hidden = !!autoSrc; if (!autoSrc) chips('srcs', SRC_OPTS, player, 'quelle'); }
+  $('l1-next').addEventListener('click', (e) => { addXP(100, e.target); show('lead2'); });
+  $('l2-next').addEventListener('click', (e) => { addXP(100, e.target); show('lead3'); });
+  const telOk = (v) => { const d = v.replace(/[^\d]/g, ''); return /^[+\d][\d\s()\/-]{5,}$/.test(v) && d.length >= 6 && d.length <= 16; };
+  const fmtTel = (v) => v.replace(/[^\d+\s()\/-]/g, '');
+  $('in-tel').addEventListener('input', (e) => { e.target.value = fmtTel(e.target.value); e.target.removeAttribute('aria-invalid'); $('err-tel').textContent = ''; });
+  $('l3-next').addEventListener('click', (e) => {
+    const v = $('in-tel').value.trim(); if (!telOk(v)) { $('err-tel').textContent = 'Bitte gib eine gültige Telefonnummer ein, z. B. 0170 1234567.'; $('in-tel').setAttribute('aria-invalid', 'true'); shake(); return; }
+    player.tel = v; addXP(200, e.target); buildSummary(); $('consent').checked = false; $('save').disabled = true; show('lead4');
+    setTimeout(() => { const [x, y] = centerOf($('l4-av')); burst(x, y, css('--gold'), 30, 6); setMood('l4-av', 'jump', 1200); jingle([392, 523, 659, 784]); }, 400);
+  });
+  function buildSummary() {
+    const rows = [['Vorname', player.name, 'editor'], ['Telefon', player.tel, 'lead3'], ['Kontakt per', player.kontakt, 'lead3'], ['Wann', [player.tage, player.zeit].filter(Boolean).join(', '), 'lead1'], ['Begleitung', player.begleitung, 'lead2'], ['Alter', player.alter, 'lead2'], ['Klasse', player.klasse, 'editor']];
+    $('summary').replaceChildren(...rows.map(([a, b, go]) => { const d = document.createElement('div'); d.className = 'sr'; const s = document.createElement('span'); s.textContent = a; const v = document.createElement('b'); v.textContent = b || '–'; v.style.fontWeight = '500'; const ed = document.createElement('button'); ed.className = 'link'; ed.textContent = 'ändern'; ed.setAttribute('aria-label', a + ' ändern'); ed.addEventListener('click', () => { afterEditor = go === 'editor' ? 'lead4pre' : null; show(go); }); d.append(s, v, ed); return d; }));
+  }
+  $('consent').addEventListener('change', (e) => { $('save').disabled = !e.target.checked; if (e.target.checked) beep(880, .05); });
+  async function submit(data) {
+    if (data.hp) return { demo: !FORM.action }; // Spam-Schutz: Bots füllen das versteckte Feld aus
+    delete data.hp; data.quelle = autoSrc || data.quelle || '–';
+    if (!FORM.action) return { demo: true };
+    const fd = new FormData(); const f = FORM.fields; const put = (k, v) => { if (f[k]) fd.append(f[k], v || '–'); };
+    Object.entries(data).forEach(([k, v]) => put(k, v)); put('einwilligung', 'Ja, erteilt am ' + new Date().toLocaleString('de-DE') + ' (' + data.weg + ')');
+    await fetch(FORM.action, { method: 'POST', mode: 'no-cors', body: fd }); return { demo: false };
+  }
+  $('save').addEventListener('click', async () => {
+    if (!$('consent').checked) return; $('save').disabled = true; $('save').textContent = 'Speichere…';
+    try { const r = await submit({ vorname: player.name, telefon: player.tel, wunschzeit: player.zeit, begleitung: player.begleitung, klasse: player.klasse, spiel: player.spiel || '–', score: player.score || '–', weg: 'AIRIS Arcade', wunschtage: player.tage, kontaktweg: player.kontakt, altersgruppe: player.alter || '–', quelle: player.quelle, hp: $('in-hp').value }); $('demo-note').hidden = !r.demo; }
+    catch (e) { $('err-save').textContent = 'Speichern hat nicht geklappt. Bitte prüf deine Verbindung oder ruf uns an: 02203 1864763.'; $('save').disabled = false; $('save').textContent = 'Spielstand speichern & anmelden'; return; }
+    store.set('saved', true); player.tel = ''; $('in-tel').value = ''; $('done-name').textContent = player.name; $('save').textContent = 'Spielstand speichern & anmelden';
+    addXP(500); drawCard(); show('done'); setTimeout(() => { confetti(); jingle([523, 659, 784, 1047, 1319], 120); vibe([40, 60, 40, 60, 120]); }, 300);
+  });
+
+  /* ===================== PLAIN (serious) FORM ===================== */
+  const plain = { zeit: '', beg: '', tage: '', kontakt: 'Anruf', alter: '', src: '' };
+  function radios(id, name, list, key) { $(id).replaceChildren(...list.map((t) => { const l = document.createElement('label'); const i = document.createElement('input'); i.type = 'radio'; i.name = name; i.value = t; i.checked = plain[key] === t; i.addEventListener('change', () => { plain[key] = t; }); l.append(i, document.createTextNode(t)); return l; })); }
+  function buildPlain() { radios('p-zeit', 'pzeit', ['Vormittag', 'Nachmittag', 'Abend', 'Egal'], 'zeit'); radios('p-tage', 'ptage', ['Unter der Woche', 'Am Wochenende', 'Egal'], 'tage'); radios('p-kontakt', 'pkontakt', ['Anruf', 'WhatsApp'], 'kontakt'); radios('p-beg', 'pbeg', ['Allein', 'Mit Begleitung'], 'beg'); radios('p-alter', 'palter', ['18–29', '30–44', '45–59', '60+'], 'alter'); $('p-src-field').hidden = !!autoSrc; if (!autoSrc) radios('p-src', 'psrc', ['Instagram', 'Facebook', 'TikTok', 'Freunde/Familie', 'Im Studio', 'Anderes'], 'src'); }
+  $('p-send').addEventListener('click', async () => {
+    const n = $('p-name').value.trim(), t = $('p-tel').value.trim(); const errs = [];
+    $('p-name').toggleAttribute('aria-invalid', n.length < 2); $('p-tel').toggleAttribute('aria-invalid', !telOk(t));
+    if (n.length < 2) errs.push('Bitte geben Sie Ihren Vornamen ein.'); if (!telOk(t)) errs.push('Bitte geben Sie eine gültige Telefonnummer ein.'); if (!plain.zeit) errs.push('Bitte wählen Sie eine Tageszeit.'); if (!plain.tage) errs.push('Bitte wählen Sie, welche Tage passen.'); if (!$('p-consent').checked) errs.push('Bitte bestätigen Sie die Einwilligung.');
+    if (errs.length) { $('p-err').textContent = errs.join(' '); return; }
+    $('p-err').textContent = ''; $('p-send').disabled = true; $('p-send').textContent = 'Wird gesendet…';
+    try { const r = await submit({ vorname: n, telefon: t, wunschzeit: plain.zeit, begleitung: plain.beg || '–', klasse: '–', spiel: '–', score: '–', weg: 'Einfaches Formular', wunschtage: plain.tage, kontaktweg: plain.kontakt, altersgruppe: plain.alter || '–', quelle: plain.src, hp: $('p-hp').value }); $('t-demo').hidden = !r.demo; }
+    catch (e) { $('p-err').textContent = 'Das Senden hat nicht geklappt. Bitte rufen Sie uns an: 02203 1864763.'; $('p-send').disabled = false; $('p-send').textContent = 'Kostenlos anmelden'; return; }
+    $('p-send').textContent = 'Kostenlos anmelden'; $('p-send').disabled = false; $('p-name').value = ''; $('p-tel').value = ''; $('p-consent').checked = false;
+    $('t-name').textContent = n; show('thanks');
+  });
+
+  /* ===================== PLAYER CARD ===================== */
+  function drawCard() {
+    const c = $('card'), g = c.getContext('2d'); const W = 600, H = 840; g.imageSmoothingEnabled = false; const bgc = PAL.bg[look.bg];
+    const grd = g.createLinearGradient(0, 0, 0, H); grd.addColorStop(0, '#0f1622'); grd.addColorStop(1, '#070b12'); g.fillStyle = grd; g.fillRect(0, 0, W, H);
+    g.strokeStyle = 'rgba(155,225,47,.08)'; for (let x = 0; x < W; x += 30) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, H); g.stroke(); } for (let y = 0; y < H; y += 30) { g.beginPath(); g.moveTo(0, y); g.lineTo(W, y); g.stroke(); }
+    g.strokeStyle = bgc; g.lineWidth = 6; g.strokeRect(16, 16, W - 32, H - 32); g.strokeStyle = '#9be12f'; g.lineWidth = 2; g.strokeRect(30, 30, W - 60, H - 60);
+    g.fillStyle = '#9be12f'; g.font = '700 28px "Chakra Petch", sans-serif'; g.textAlign = 'left'; g.fillText('A I R I S', 56, 84); g.textAlign = 'right'; g.font = '13px "Press Start 2P", monospace'; g.fillText('PLAYER CARD', W - 56, 82);
+    g.fillStyle = bgc; g.globalAlpha = .9; g.beginPath(); g.arc(W / 2, 310, 170, 0, Math.PI * 2); g.fill(); g.globalAlpha = 1;
+    const sp = document.createElement('canvas'); sp.width = 16; sp.height = 16; drawAvatar(sp, 'cheer', 0); g.drawImage(sp, W / 2 - 150, 160, 300, 300);
+    g.textAlign = 'center'; g.fillStyle = '#eef3ff'; g.font = '700 italic 52px "Chakra Petch", sans-serif'; g.fillText((player.name || 'Player 1').toUpperCase().slice(0, 14), W / 2, 540);
+    g.fillStyle = '#9be12f'; g.font = '15px "Press Start 2P", monospace'; g.fillText((player.klasse || 'Gamer').toUpperCase() + ' · LV' + (1 + Math.floor(xp / 400)), W / 2, 578);
+    [['REAKTION', best.reaction], ['DODGE', best.dodge], ['MERKEN', best.simon]].forEach(([n, v], i) => { const x = 110 + i * 190; g.fillStyle = '#16202f'; g.fillRect(x - 70, 604, 140, 80); g.strokeStyle = '#263449'; g.strokeRect(x - 70, 604, 140, 80); g.fillStyle = '#97a5ba'; g.font = '10px "Press Start 2P", monospace'; g.fillText(n, x, 632); g.fillStyle = '#ffc93c'; g.font = '700 30px "Chakra Petch", sans-serif'; g.fillText(v === undefined ? '–' : String(v), x, 668); });
+    g.fillStyle = '#9be12f'; g.fillRect(56, 708, W - 112, 64); g.fillStyle = '#0a1006'; g.font = '700 26px "Chakra Petch", sans-serif'; g.fillText('4 WOCHEN AIRIS GRATIS', W / 2, 750);
+    g.fillStyle = '#97a5ba'; g.font = '13px "IBM Plex Sans", sans-serif'; g.fillText('Zeig diese Karte im Studio · Körperformen Köln-Porz · Zum Alten Paulshof 1–3', W / 2, 800);
+  }
+  $('card-dl').addEventListener('click', () => { $('card').toBlob((b) => { if (!b) return; const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'AIRIS-Spielerkarte-' + (player.name || 'Player') + '.png'; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }); });
+  $('card-share').addEventListener('click', () => { $('card').toBlob((b) => { const file = b ? new File([b], 'AIRIS-Spielerkarte.png', { type: 'image/png' }) : null; shareText(`${player.name || 'Ich'} ist jetzt AIRIS-Player (${player.klasse}) 🎮 Bau dir auch deinen Charakter:`, file); }); });
+
+  // editor "ändern" from summary returns to summary
+  const _done = $('ed-done'); _done.addEventListener('click', () => { if (afterEditor === 'lead4pre') { afterEditor = null; buildSummary(); show('lead4'); } }, true);
+
+  redrawAll();
+  if (charDone()) { $('hdr-char').hidden = true; }
+})();
+</script>
+</body>
+</html>
